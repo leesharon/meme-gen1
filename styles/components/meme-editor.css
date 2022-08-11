@@ -1,0 +1,105 @@
+.meme-editor-container {
+    display: none;
+    background-color: #e3e3e3;
+    height: 100vh;
+    padding-top: 15px;
+}
+
+.meme-editor-container .main-layout {
+    width: 100%;
+}
+
+.meme-editor-container .main-layout .canvas-container {
+    display: flex;
+    justify-content: center;
+}
+
+.meme-editor-container .main-layout #canvas {
+    width: 97%;
+    margin-bottom: 15px;
+}
+
+.meme-editor-container .main-layout #canvas:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.meme-editor-container .main-layout .edit-menu{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr 0.2fr 1fr 1fr;
+    grid-template-areas: 'tx   tx   tx   tx   tx   tx'
+                         ' .    .    .    .    .    .'
+                         ' .   de   in   sw   cl    .'
+                         ' .   sv   rl   al   clf   .';
+    gap: 10px;
+}
+
+.meme-editor-container .main-layout .edit-menu > *{
+    padding: 10px 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+}
+
+.meme-editor-container .main-layout .edit-menu > *:hover{
+    background-color: rgba(239, 238, 238, 0.632);
+}
+
+.meme-editor-container .edit-menu .txt-input{
+    /* grid-column: 1 / 6; */
+    cursor:text;
+    text-align: center;
+    grid-area: tx;
+}
+
+.meme-editor-container .edit-menu .switch-line{
+    /* grid-column: 4 / 5;
+    grid-row: 3 / 4; */
+    grid-area: sw;
+}
+
+.meme-editor-container .edit-menu .font-increase{
+    /* grid-column: 3 / 4;
+    grid-row: 3 / 4; */
+    grid-area: in;
+}
+
+.meme-editor-container .edit-menu .font-decrease{
+    /* grid-column: 2 / 3;
+    grid-row: 3 / 4; */
+    grid-area: de;
+}
+
+.meme-editor-container .edit-menu .clr-input{
+    /* grid-column: 4 / 5;
+    grid-row: 5 / 6; */
+    /* cursor: unset; */
+    grid-area: clf;
+}
+
+.meme-editor-container .edit-menu .fa-fill-drip{
+    /* grid-column: 3 / 4;
+    grid-row: 5 / 6; */
+    grid-area: cl;
+}
+
+.meme-editor-container .add-line {
+    /* grid-column: 4 / 5;
+    grid-row: 4 / 5; */
+    grid-area: al;
+}
+
+.meme-editor-container .remove-line {
+    /* grid-column: 3 / 4;
+    grid-row: 4/ 5; */
+    grid-area: rl;
+}
+
+.meme-editor-container .btn-save {
+    /* grid-column: 2 / 3;
+    grid-row: 4/ 5; */
+    grid-area: sv;
+}
+

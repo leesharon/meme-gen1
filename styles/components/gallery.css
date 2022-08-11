@@ -1,0 +1,15 @@
+
+.gallery {
+    background-color: #e3e3e3;
+}
+
+.gallery .main-layout {
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 15px;
+}
+
+.gallery img {
+    object-fit: contain;
+    max-width: 140px;
+}

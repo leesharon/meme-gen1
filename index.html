@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Gen</title>
+    <link rel="stylesheet" href="lib/font-awesome/all.css">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body onload="onInit()">
+    <div onclick="onToggleMenu()" class="main-screen"></div>
+    <div class="width-test" hidden></div>
+    <!-- Main Header -->
+    <header class="main-header flex justify-center">
+        <div class="header-layout main-layout flex align-center">
+            <img onclick="onDisplayGallery()" class="logo-img" src="img/logo/LOGO.png" alt="Logo Image">
+            <nav class="main-nav">
+                <ul class="main-nav-list clean-list flex">
+                    <li onclick="onToggleActive(this); onDisplayGallery()" class="active item1"><a class="flex align-center list-item">Gallery</a></li>
+                    <li onclick="onToggleActive(this)" class="item2"><a onclick="renderMemesGallery()" class="flex align-center list-item">Memes</a></li>
+                    <li onclick="onToggleActive(this)" class="item3"><a class="flex align-center list-item"> About</a></li>
+                </ul>
+            </nav>
+            <button class="btn-menu" onclick="onToggleMenu()"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </header>
+
+    <!-- Filter Bar -->
+    <section class="filter-bar flex center">
+        <div class="main-layout flex space-between">
+            <input class="input-search" placeholder="Enter search keyword" oninput="onSetImgFilter(this.value)" list="filter-words">
+            <i class="fa-solid fa-magnifying-glass align-self-center"></i>
+            <datalist id="filter-words">
+                <option value="politics">
+                <option value="celebrity">
+                <option value="funny">
+                <option value="baby">
+                <option value="sweet">
+                <option value="animal">
+                <option value="movie">
+            </datalist>
+            <button class="btn-flexible" onclick="onFlexibleClick()">I'm Flexible</button>
+            <!-- <div class="filter-list-container flex align-center">
+                <ul class="filter-list clean-list flex">
+                    <li>Funny</li>
+                    <li>Comics</li>
+                    <li>Dogs</li>
+                    <li>Drinks</li>
+                    <li>Books</li>
+                    <li>More...</li>
+                </ul>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Image Gallery -->
+    <section class="gallery flex justify-center">
+        <div class="main-layout flex justify-center">
+
+        </div>
+    </section>
+
+    <!-- MEME Editor -->
+    <section class="meme-editor-container flex justify-center">
+        <div class="main-layout flex flex-col align-center">
+            <div class="canvas-container">
+                <canvas id="canvas" width="500px" height="500px"></canvas>
+            </div>
+            <div class="edit-menu">
+                <input class="txt-input" onblur="renderMeme()" onfocus="onSetLineFocus()"
+                    oninput="onSetLineTxt(this.value)" type="text" value="Your text goes here">
+                <input style="opacity: 0;" class="clr-input" onchange="onSetColor(this.value)" type="color"><i onclick="onToggleColorMenu()" class="fa-solid fa-fill-drip"></i>
+                <button class="font-increase" onclick="onIncreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-plus"></i></button>
+                <button class="font-decrease" onclick="onDecreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-minus"></i></button>
+                <button class="switch-line" onclick="onSwitchSelectedLine()"><i class="fa-solid fa-repeat"></i></button>
+                <button class="add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
+                <button class="remove-line" onclick="onRemoveSelectedLine()"><i class="fa-solid fa-trash-can"></i></button>
+                <button class="btn-save" onclick="onSaveMeme()"><i class="fa-solid fa-floppy-disk"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Memes Gallery -->
+    <section class="meme-gallery">
+        <div class="main-layout">
+
+        </div>
+    </section>
+
+    <!-- Main Footer -->
+    <footer class="main-footer flex">
+        <div class="main-layout flex flex-col align-center justify-center">
+            <div class="main-logo">Memegen</div>
+            <span class="copy-rights">
+                © 2022 memegen.com - All Rights Reserved
+            </span>
+        </div>
+    </footer>
+
+    <script src="js/services/utils.services.js"></script>
+    <script src="js/services/storage.services.js"></script>
+    <script src="js/services/upload.services.js"></script>
+    <script src="js/services/meme.services.js"></script>
+    <script src="js/meme.controller.js"></script>
+    <script src="js/meme-gallery.controller.js"></script>
+    <script src="js/gallery.controller.js"></script>
+</body>
+
+</html>

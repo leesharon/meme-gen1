@@ -1,0 +1,41 @@
+
+
+.filter-bar {
+    min-height: 100px;
+    justify-content: center;
+}
+
+.filter-bar .main-layout {
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.filter-bar .input-search {
+    height: 40%;
+    align-self: center;
+    border: none;
+    border-bottom: 2px black solid;
+}
+
+.filter-bar .btn-flexible {
+    height: 40%;
+    align-self: center;
+    background-color: rgb(73, 97, 196);
+    border: none;
+    border-radius: 17px;
+    padding: 10px;
+    color: white;
+    margin-inline-start: 20px;
+}
+
+.filter-bar .btn-flexible:hover {
+    background-color: rgb(83, 107, 200);
+}
+
+.filter-bar .filter-list-container {
+    margin-inline-start: auto;
+}
+
+.filter-bar .filter-list-container .filter-list {
+    gap: 10px;
+}
