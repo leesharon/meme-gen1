@@ -49,58 +49,40 @@
 }
 
 .meme-editor-container .edit-menu .txt-input{
-    /* grid-column: 1 / 6; */
     cursor:text;
     text-align: center;
     grid-area: tx;
 }
 
 .meme-editor-container .edit-menu .switch-line{
-    /* grid-column: 4 / 5;
-    grid-row: 3 / 4; */
     grid-area: sw;
 }
 
 .meme-editor-container .edit-menu .font-increase{
-    /* grid-column: 3 / 4;
-    grid-row: 3 / 4; */
     grid-area: in;
 }
 
 .meme-editor-container .edit-menu .font-decrease{
-    /* grid-column: 2 / 3;
-    grid-row: 3 / 4; */
     grid-area: de;
 }
 
 .meme-editor-container .edit-menu .clr-input{
-    /* grid-column: 4 / 5;
-    grid-row: 5 / 6; */
-    /* cursor: unset; */
     grid-area: clf;
 }
 
 .meme-editor-container .edit-menu .fa-fill-drip{
-    /* grid-column: 3 / 4;
-    grid-row: 5 / 6; */
     grid-area: cl;
 }
 
 .meme-editor-container .add-line {
-    /* grid-column: 4 / 5;
-    grid-row: 4 / 5; */
     grid-area: al;
 }
 
 .meme-editor-container .remove-line {
-    /* grid-column: 3 / 4;
-    grid-row: 4/ 5; */
     grid-area: rl;
 }
 
 .meme-editor-container .btn-save {
-    /* grid-column: 2 / 3;
-    grid-row: 4/ 5; */
     grid-area: sv;
 }
 

@@ -41,6 +41,16 @@ const gLineStrs = [
     'you sure about that?'
 ]
 
+const gKeywords = [
+    { name: 'politics', value: 0.8 },
+    { name: 'sweet', value: 1.4 },
+    { name: 'animal', value: 1.2 },
+    { name: 'baby', value: 1.8 },
+    { name: 'celebrity', value: 1.1 },
+    { name: 'funny', value: 2.2 },
+    { name: 'movie', value: 1 }
+]
+
 const gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
@@ -68,7 +78,9 @@ let gFilterBy
 function getImgsForDisplay() {
 
     if (!gFilterBy) return gImgs
-    return gImgs.filter(img => img.keywords.find(keyword => keyword.toLowerCase().includes(gFilterBy.toLowerCase())))
+    return gImgs.filter(img => img.keywords
+                .find(keyword => keyword.toLowerCase()
+                .includes(gFilterBy.toLowerCase())))
 }
 
 function setLineTxt(txt) {
@@ -119,7 +131,7 @@ function getImgsLength() {
     return gImgs.length
 }
 
-function setMemeOptions() {
+function setFlexibleMemeOptions() {
 
     // Randomly selects number of lines
     const lineCount = getRandomIntInclusive(0, 1) ? 1 : 2
@@ -140,13 +152,14 @@ function setMemeOptions() {
 function saveMeme() {
     let memesDB = loadFromStorage(STORAGE_KEY)
     if (!memesDB) memesDB = []
-    
+
     // sets an image URL for the meme to display later in the gallery
     uploadImg()
     setTimeout(() => {
         gMeme['memeUrl'] = getUploadedImgURL()
         memesDB.push(gMeme)
-        saveToStorage(STORAGE_KEY, memesDB)}, 2000)
+        saveToStorage(STORAGE_KEY, memesDB)
+    }, 2000)
 }
 
 function setImgFilterBy(filterBy) {
@@ -154,7 +167,7 @@ function setImgFilterBy(filterBy) {
 }
 
 function removeSelectedLine() {
-    if (gMeme.lines.length === 0 ) return
+    if (gMeme.lines.length === 0) return
 
     gMeme.lines.splice(gMeme.selectedLineIdx, 1)
     gMeme.selectedLineIdx = 0
@@ -198,12 +211,12 @@ function addLine() {
 }
 
 function getMemesFromStorage() {
-   return loadFromStorage(STORAGE_KEY)
+    return loadFromStorage(STORAGE_KEY)
 }
 
 function moveLine(x, y) {
-       gMeme.lines[0].pos.x += x
-       gMeme.lines[0].pos.y += y
+    gMeme.lines[0].pos.x += x
+    gMeme.lines[0].pos.y += y
 }
 
 function setMemeNewImg(url) {
@@ -212,4 +225,13 @@ function setMemeNewImg(url) {
 
     gMeme.selectedImgId = imgId
     gImgs.push(newImg)
+}
+
+function getKeywords() {
+    return gKeywords
+}
+
+function setKeywordsValue(keywordName) {
+    const keywordIdx = gKeywords.findIndex(keyword => keyword.name === keywordName.toLowerCase())
+    gKeywords[keywordIdx].value += 0.05
 }

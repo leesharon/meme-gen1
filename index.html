@@ -43,16 +43,10 @@
                 <option value="movie">
             </datalist>
             <button class="btn-flexible" onclick="onFlexibleClick()">I'm Flexible</button>
-            <!-- <div class="filter-list-container flex align-center">
-                <ul class="filter-list clean-list flex">
-                    <li>Funny</li>
-                    <li>Comics</li>
-                    <li>Dogs</li>
-                    <li>Drinks</li>
-                    <li>Books</li>
-                    <li>More...</li>
+            <div class="filter-list-container flex align-center">
+                <ul class="filter-list clean-list flex align-center">
                 </ul>
-            </div> -->
+            </div>
         </div>
     </section>
 
@@ -78,7 +72,7 @@
                 <button class="switch-line" onclick="onSwitchSelectedLine()"><i class="fa-solid fa-repeat"></i></button>
                 <button class="add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
                 <button class="remove-line" onclick="onRemoveSelectedLine()"><i class="fa-solid fa-trash-can"></i></button>
-                <button class="btn-save" onclick="onSaveMeme()"><i class="fa-solid fa-floppy-disk"></i></button>
+                <button disabled class="btn-save" onclick="onSaveMeme()"><i class="fa-solid fa-floppy-disk"></i></button>
                 <img class="icon-share" onclick="onShareMeme()" src="img/share.svg" alt="">
                 <img class="icon-upload" onclick="onImgInputIcon()" src="img/folder-add.svg" alt="">
                 <input hidden type="file" onchange="onImgInput(event)" name="" class="input-img">

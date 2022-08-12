@@ -37,5 +37,14 @@
 }
 
 .filter-bar .filter-list-container .filter-list {
-    gap: 10px;
+    gap: 15px;
+    
+}
+
+.filter-bar .filter-list li {
+    cursor: pointer;
+}
+
+.filter-bar .filter-list li:hover {
+    color: rgb(86, 83, 83);
 }

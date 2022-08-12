@@ -2,6 +2,7 @@
 
 function onInit() {
     renderGallery()
+    renderKeywordsList()
 }
 
 function renderGallery() {
@@ -22,14 +23,31 @@ function onImgSelect(imgId = getRandomIntInclusive(1, getImgsLength())) {
     renderMeme()
 }
 
+function renderKeywordsList() {
+    const keywords = getKeywords()
+    let keywordsTotalValue = 0
+    keywords.forEach(keyword => keywordsTotalValue += keyword.value)
+    let strHTML
+    strHTML = keywords.map(keyword => `
+    <li style="font-size: ${keyword.value * 10 / keywordsTotalValue}em;" onclick="onSetImgFilter(undefined, this)">${keyword.name.charAt(0).toUpperCase() + keyword.name.slice(1)}</li>
+    `)
+
+    document.querySelector('.filter-list').innerHTML = strHTML.join('')
+}
+
 function onFlexibleClick() {
-    setMemeOptions()
+    setFlexibleMemeOptions()
     onImgSelect()
 }
 
-function onSetImgFilter(filterBy) {
+function onSetImgFilter(filterBy, elWord) {
+    if (!filterBy) {
+        filterBy = elWord.innerText
+        setKeywordsValue(elWord.innerText)
+    }
     setImgFilterBy(filterBy)
     renderGallery()
+    renderKeywordsList()
 }
 
 function onToggleMenu() {
