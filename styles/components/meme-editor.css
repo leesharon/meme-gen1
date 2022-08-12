@@ -17,11 +17,11 @@
 .meme-editor-container .main-layout #canvas {
     width: 97%;
     margin-bottom: 15px;
+    cursor: grab;
 }
 
 .meme-editor-container .main-layout #canvas:hover {
     opacity: 0.9;
-    cursor: pointer;
 }
 
 .meme-editor-container .main-layout .edit-menu{

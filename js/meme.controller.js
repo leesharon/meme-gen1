@@ -4,12 +4,18 @@ const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 
 let gElCanvas
 let gCtx
+let gIsDrag = false
+let gPrevPos
+let gClickedLineIdx
 
 function renderMeme() {
     gElCanvas = document.querySelector('#canvas')
     gCtx = gElCanvas.getContext('2d')
-    
+
+    setMemeLinesPosition(gElCanvas)
     renderImg()
+    addMouseListeners()
+    addTouchListeners()
 }
 
 function renderImg() {
@@ -26,18 +32,10 @@ function renderImg() {
 }
 
 function drawLines(lines) {
-    lines.forEach(line => drawText(gElCanvas.width / 2, line.align, line.txt, line.fontSize, line.color, line.strokeColor))
+    lines.forEach(line => drawText(line.pos.x, line.pos.y, line.txt, line.fontSize, line.color, line.strokeColor))
 }
 
-function drawText(x, align, txt, fontSize, color, strokeColor = 'black') {
-    // Calculates position of the line
-    let y
-    if (align === 'top') y = gElCanvas.height / 6
-    else if (align === 'bottom') y = gElCanvas.height * 0.9
-    else if (align === 'middle') y = gElCanvas.height / 2
-    else if (align === 'middle-top') y = gElCanvas.height * 0.32
-    else if (align === 'middle-bottom') y = gElCanvas.height * 0.72
-
+function drawText(x, y, txt, fontSize, color, strokeColor = 'black') {
     gCtx.beginPath()
     gCtx.textAlign = 'center'
     gCtx.lineWidth = 1
@@ -77,14 +75,16 @@ function onSetLineTxt(txt) {
 }
 
 function onSetLineFocus() {
-    const lineSize = getSelectedLineSize()
+    const line = getSelectedLine()
+    const lineSize = line.fontSize
     const txt = document.querySelector('.txt-input').value
 
-    const width = getWidth(txt, lineSize)
+    let width = getWidth(txt, lineSize)
+    width = width  - 13 * width / 100
     const height = lineSize + 10
 
-    const x = (gElCanvas.width / 2) - (width / 2)
-    const y = getLineAlign() - (lineSize)
+    const x = line.pos.x - (width / 2)
+    const y = line.pos.y - lineSize
 
     drawRect(x, y, height, width)
 }
@@ -130,7 +130,7 @@ function getWidth(txt, lineSize) {
     div.style.display = "inline-block"
     const width = div.scrollWidth
     div.style.display = "none"
-    
+
     return width
 }
 
@@ -144,7 +144,7 @@ function onAddLine() {
 }
 
 function onRemoveSelectedLine() {
-    removeSelectedLine() 
+    removeSelectedLine()
     onSwitchSelectedLine()
     renderMeme()
 }
@@ -182,6 +182,85 @@ function renderImg1(img) {
     uploadImg()
     setTimeout(() => {
         setMemeNewImg(getImgURL())
-    }, 1000);
+    }, 1000)
 }
 
+// Grabbing lines on meme funcs
+
+function addMouseListeners() {
+    gElCanvas.addEventListener('mousemove', onMove)
+    gElCanvas.addEventListener('mousedown', onDown)
+    gElCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gElCanvas.addEventListener('touchmove', onMove)
+    gElCanvas.addEventListener('touchstart', onDown)
+    gElCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+    // Getting the clicked position
+    const pos = getEvPos(ev)
+
+    if (!isLineClicked(pos)) return
+    console.log('im here');
+    gIsDrag = true
+    gPrevPos = pos
+    document.querySelector('#canvas').style.cursor = 'grabbing'
+}
+
+function onMove(ev) {
+    if (!gIsDrag) return
+    const pos = getEvPos(ev)
+    const dx = pos.x - gPrevPos.x
+    const dy = pos.y - gPrevPos.y
+    moveLine(dx, dy, gClickedLineIdx)
+    gPrevPos = pos
+    renderMeme()
+}
+
+function onUp() {
+    gIsDrag = false
+    document.querySelector('#canvas').style.cursor = 'grab'
+}
+
+function isLineClicked(clickedPos) {
+    const lines = getMemeLines()
+    // Checks if the clickedpos is in the borders of one of the lines
+    let clickedLine
+    clickedLine = lines.find((line, idx) => {
+        const lineSize = line.fontSize
+        const width = getWidth(line.txt, lineSize)
+        const x = line.pos.x
+        const y = line.pos.y
+
+        const maxX = x + (width / 2)
+        const minX = x - (width / 2)
+        const maxY = y
+        const minY = y - lineSize
+
+        if (clickedPos.x <= maxX && clickedPos.x >= minX && clickedPos.y >= minY && clickedPos.y <= maxY) {
+            gClickedLineIdx = idx
+            return true
+        }
+    })
+    return clickedLine
+}
+
+function getEvPos(ev) {
+    var pos = {
+        x: ev.offsetX,
+        y: ev.offsetY
+    }
+    // const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
+    if (gTouchEvs.includes(ev.type)) {
+        ev.preventDefault()
+        ev = ev.changedTouches[0]
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft,
+            y: ev.pageY - ev.target.offsetTop
+        }
+    }
+    return pos
+}

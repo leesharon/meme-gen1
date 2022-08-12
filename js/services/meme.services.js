@@ -79,8 +79,8 @@ function getImgsForDisplay() {
 
     if (!gFilterBy) return gImgs
     return gImgs.filter(img => img.keywords
-                .find(keyword => keyword.toLowerCase()
-                .includes(gFilterBy.toLowerCase())))
+        .find(keyword => keyword.toLowerCase()
+            .includes(gFilterBy.toLowerCase())))
 }
 
 function setLineTxt(txt) {
@@ -119,8 +119,8 @@ function switchSelectedLine() {
     if (gMeme.selectedLineIdx === gMeme.lines.length) gMeme.selectedLineIdx = 0
 }
 
-function getSelectedLineSize() {
-    return gMeme.lines[gMeme.selectedLineIdx].fontSize
+function getSelectedLine() {
+    return gMeme.lines[gMeme.selectedLineIdx]
 }
 
 function getSelectedLineTxt() {
@@ -214,9 +214,9 @@ function getMemesFromStorage() {
     return loadFromStorage(STORAGE_KEY)
 }
 
-function moveLine(x, y) {
-    gMeme.lines[0].pos.x += x
-    gMeme.lines[0].pos.y += y
+function moveLine(x, y, lineIdx) {
+    gMeme.lines[lineIdx].pos.x += x
+    gMeme.lines[lineIdx].pos.y += y
 }
 
 function setMemeNewImg(url) {
@@ -234,4 +234,29 @@ function getKeywords() {
 function setKeywordsValue(keywordName) {
     const keywordIdx = gKeywords.findIndex(keyword => keyword.name === keywordName.toLowerCase())
     gKeywords[keywordIdx].value += 0.05
+}
+
+function getMemeLines() {
+    return gMeme.lines
+}
+
+function setMemeLinesPosition(elCanvas) {
+    gMeme.lines.forEach((line, idx) => {
+        if (!line.pos) {
+            const pos = {}
+            pos['x'] = elCanvas.width / 2
+
+            // Calculates position of the line
+            let y
+            if (line.align === 'top') y = elCanvas.height / 6
+            else if (line.align === 'bottom') y = elCanvas.height * 0.9
+            else if (line.align === 'middle') y = elCanvas.height / 2
+            else if (line.align === 'middle-top') y = elCanvas.height * 0.32
+            else if (line.align === 'middle-bottom') y = elCanvas.height * 0.72
+
+            pos['y'] = y
+
+            gMeme.lines[idx].pos = pos
+        }
+    })
 }
