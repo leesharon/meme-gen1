@@ -64,18 +64,19 @@
                 <canvas id="canvas" width="500px" height="500px"></canvas>
             </div>
             <div class="edit-menu">
-                <input class="txt-input" onblur="renderMeme()" onfocus="onSetLineFocus()"
+                <input class="grid-item txt-input" onblur="renderMeme()" onfocus="onSetLineFocus()"
                     oninput="onSetLineTxt(this.value)" type="text" value="Your text goes here">
-                <input style="opacity: 0;" class="clr-input" onchange="onSetColor(this.value)" type="color"><i onclick="onToggleColorMenu()" class="fa-solid fa-fill-drip"></i>
-                <button class="font-increase" onclick="onIncreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-plus"></i></button>
-                <button class="font-decrease" onclick="onDecreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-minus"></i></button>
-                <button class="switch-line" onclick="onSwitchSelectedLine()"><i class="fa-solid fa-repeat"></i></button>
-                <button class="add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
-                <button class="remove-line" onclick="onRemoveSelectedLine()"><i class="fa-solid fa-trash-can"></i></button>
-                <a class="btn-save" onclick="onDownloadCanvas(this)">Save</a>
-                <img class="icon-share" onclick="onShareMeme()" src="img/share.svg" alt="">
-                <img class="icon-upload" onclick="onImgInputIcon()" src="img/folder-add.svg" alt="">
-                <input hidden type="file" onchange="onImgInput(event)" name="" class="input-img">
+                <input style="opacity: 0;" class="clr-input" onchange="onSetColor(this.value)" type="color"> <!-- not displayed-->
+                <i onclick="onToggleColorMenu()" class="fa-solid fa-fill-drip grid-item"></i>
+                <button class="grid-item font-increase" onclick="onIncreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-plus"></i></button>
+                <button class="grid-item font-decrease" onclick="onDecreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-minus"></i></button>
+                <button class="grid-item switch-line" onclick="onSwitchSelectedLine()"><i class="fa-solid fa-repeat"></i></button>
+                <button class="grid-item add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
+                <button class="grid-item remove-line" onclick="onRemoveSelectedLine()"><i class="fa-solid fa-trash-can"></i></button>
+                <a class="grid-item btn btn-save" onclick="onDownloadCanvas(this)">Save</a>
+                <a class="grid-item btn btn-share" onclick="onShareMeme()" alt="">Share</a>
+                <img class="grid-item icon-upload" onclick="onImgInputIcon()" src="img/folder-add.svg" alt="">
+                <input hidden type="file" onchange="onImgInput(event)" name="" class="input-img"> <!-- not displayed-->
             </div>
         </div>
     </section>

@@ -26,18 +26,18 @@
 
 .meme-editor-container .main-layout .edit-menu{
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: 1fr 0.2fr 1fr 1fr;
-    grid-template-areas: 'tx   tx   tx   tx   tx   tx'
-                         ' .    .    .    .    .    .'
-                         ' .   de   in   sw   cl    clf'
-                         ' .   sv   rl   al   .    .'
-                         ' .   sh   up   .    .    .';
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr 0.2fr 1fr 1fr 1fr;
+    grid-template-areas: 'txt   txt   txt   txt   txt'
+                         ' .   switch  addl  rmvl   .'
+                         ' .     .     .     .     .'
+                         ' .   dec   inc   clr   clrf'
+                         ' .   .   upload   .     .'
+                         'save save    .   share  share';
     gap: 10px;
 }
 
-.meme-editor-container .main-layout .edit-menu > *{
-    padding: 10px 12px;
+.meme-editor-container .edit-menu .grid-item{
     border: none;
     border-radius: 10px;
     background-color: white;
@@ -51,46 +51,60 @@
 .meme-editor-container .edit-menu .txt-input{
     cursor:text;
     text-align: center;
-    grid-area: tx;
+    grid-area: txt;
 }
 
 .meme-editor-container .edit-menu .switch-line{
-    grid-area: sw;
+    grid-area: switch;
 }
 
 .meme-editor-container .edit-menu .font-increase{
-    grid-area: in;
+    grid-area: inc;
 }
 
 .meme-editor-container .edit-menu .font-decrease{
-    grid-area: de;
+    grid-area: dec;
 }
 
 .meme-editor-container .edit-menu .clr-input{
-    grid-area: clf;
+    grid-area: clrf;
 }
 
 .meme-editor-container .edit-menu .fa-fill-drip{
-    grid-area: cl;
+    grid-area: clr;
 }
 
 .meme-editor-container .add-line {
-    grid-area: al;
+    grid-area: addl;
 }
 
 .meme-editor-container .remove-line {
-    grid-area: rl;
+    grid-area: rmvl;
 }
 
-.meme-editor-container .btn-save {
-    grid-area: sv;
+.meme-editor-container .edit-menu .btn-save {
+    grid-area: save;
 }
 
-.meme-editor-container .icon-share {
-    grid-area: sh;
+.meme-editor-container .edit-menu .btn-share {
+    grid-area: share;
+}
+
+.meme-editor-container .edit-menu .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--clr1);
+    color: white;
+    font-weight: 500;
+    font-size: 1.25em;
+}
+
+.meme-editor-container .edit-menu .btn:hover {
+    background-color: #ff8000e1;
 }
 
 .meme-editor-container .icon-upload {
-    grid-area: up;
+    grid-area: upload;
 }
 
