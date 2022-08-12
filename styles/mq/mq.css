@@ -27,6 +27,7 @@
         color: rgb(245, 232, 232);
         font-size: 0.7em;
         padding: 5px 10px;
+        border: none;
     }
 
     .main-header .btn-menu:hover {

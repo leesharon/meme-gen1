@@ -16,7 +16,7 @@ function renderMeme() {
 function renderImg(meme) {
     const imgURL = getImgURLById(meme.selectedImgId)
     const img = new Image
-    img.src = '../' + imgURL
+    img.src = imgURL
 
     img.addEventListener('load', () => {
 
