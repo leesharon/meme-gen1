@@ -23,6 +23,7 @@ function onImgSelect(imgId = getRandomIntInclusive(1, getImgsLength())) {
     renderMeme()
 }
 
+// renders search bar keywords
 function renderKeywordsList() {
     const keywords = getKeywords()
     let keywordsTotalValue = 0
@@ -35,6 +36,7 @@ function renderKeywordsList() {
     document.querySelector('.filter-list').innerHTML = strHTML.join('')
 }
 
+// flexible button click
 function onFlexibleClick() {
     setFlexibleMemeOptions()
     onImgSelect()
@@ -54,7 +56,7 @@ function onToggleMenu() {
     document.body.classList.toggle('menu-opened')
 }
 
-function onToggleActive(elItem) {
+function onSetActiveClass(elItem) {
     document.querySelector('.item1').classList.remove('active')
     document.querySelector('.item2').classList.remove('active')
     document.querySelector('.item3').classList.remove('active')

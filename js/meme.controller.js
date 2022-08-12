@@ -80,11 +80,6 @@ function onSetLineFocus() {
     const lineSize = getSelectedLineSize()
     const txt = document.querySelector('.txt-input').value
 
-    // Has some bug with the first line width, leaving as a reference
-    // const txtMeasure = gCtx.measureText(txt)
-    // const width = txtMeasure.width + 15
-    // console.log('onSetLineFocus ~ txtMeasure', txtMeasure)
-
     const width = getWidth(txt, lineSize)
     const height = lineSize + 10
 
@@ -108,7 +103,8 @@ function onSwitchSelectedLine() {
 function drawRect(x, y, height, width) {
     gCtx.beginPath()
     gCtx.rect(x, y, width, height)
-    gCtx.strokeStyle = 'red'
+    gCtx.lineWidth = 5
+    gCtx.strokeStyle = '#ff7f00'
     gCtx.stroke()
     gCtx.closePath()
 }

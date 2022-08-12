@@ -19,9 +19,9 @@
             <img onclick="onDisplayGallery()" class="logo-img" src="img/logo/LOGO.png" alt="Logo Image">
             <nav class="main-nav">
                 <ul class="main-nav-list clean-list flex">
-                    <li onclick="onToggleActive(this); onDisplayGallery()" class="active item1"><a class="flex align-center list-item">Gallery</a></li>
-                    <li onclick="onToggleActive(this)" class="item2"><a onclick="renderMemesGallery()" class="flex align-center list-item">Memes</a></li>
-                    <li onclick="onToggleActive(this)" class="item3"><a class="flex align-center list-item"> About</a></li>
+                    <li onclick="onSetActiveClass(this); onDisplayGallery()" class="active item1"><a class="flex align-center list-item">Gallery</a></li>
+                    <li onclick="onSetActiveClass(this)" class="item2"><a onclick="renderMemesGallery()" class="flex align-center list-item">Memes</a></li>
+                    <li onclick="onSetActiveClass(this)" class="item3"><a class="flex align-center list-item"> About</a></li>
                 </ul>
             </nav>
             <button class="btn-menu" onclick="onToggleMenu()"><i style="color: white;" class="fa-solid fa-bars"></i></button>
