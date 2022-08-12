@@ -72,7 +72,7 @@
                 <button class="switch-line" onclick="onSwitchSelectedLine()"><i class="fa-solid fa-repeat"></i></button>
                 <button class="add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
                 <button class="remove-line" onclick="onRemoveSelectedLine()"><i class="fa-solid fa-trash-can"></i></button>
-                <button disabled class="btn-save" onclick="onSaveMeme()"><i class="fa-solid fa-floppy-disk"></i></button>
+                <a class="btn-save" onclick="onDownloadCanvas(this)">Save</a>
                 <img class="icon-share" onclick="onShareMeme()" src="img/share.svg" alt="">
                 <img class="icon-upload" onclick="onImgInputIcon()" src="img/folder-add.svg" alt="">
                 <input hidden type="file" onchange="onImgInput(event)" name="" class="input-img">

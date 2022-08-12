@@ -9,7 +9,7 @@ function uploadImg(isShare = false) {
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         gImgURL = uploadedImgUrl
-        
+
         if (isShare) window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`, '_blank')
     }
     doUploadImg(imgDataUrl, onSuccess);
@@ -35,4 +35,10 @@ function doUploadImg(imgDataUrl, onSuccess) {
 
 function getImgURL() {
     return gImgURL
+}
+
+function downloadCanvas(elLink) {
+    const data = gElCanvas.toDataURL();
+    elLink.href = data;
+    elLink.download = 'canvas';
 }

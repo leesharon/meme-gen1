@@ -257,10 +257,18 @@ function getEvPos(ev) {
     if (gTouchEvs.includes(ev.type)) {
         ev.preventDefault()
         ev = ev.changedTouches[0]
+        console.log(ev)
         pos = {
             x: ev.pageX - ev.target.offsetLeft,
             y: ev.pageY - ev.target.offsetTop
         }
+        console.log('getEvPos ~ pos', pos)
     }
     return pos
+}
+
+function onDownloadCanvas(elLink) {
+    const data = gElCanvas.toDataURL()
+    elLink.href = data;
+    elLink.download = 'canvas'
 }
