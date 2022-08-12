@@ -80,7 +80,7 @@ function onSetLineFocus() {
     const txt = document.querySelector('.txt-input').value
 
     let width = getWidth(txt, lineSize)
-    width = width  - 13 * width / 100
+    width = width - 13 * width / 100
     const height = lineSize + 10
 
     const x = line.pos.x - (width / 2)
@@ -207,12 +207,38 @@ function onDown(ev) {
     console.log('im here');
     gIsDrag = true
     gPrevPos = pos
+}
+
+function onDown(ev) {
+    // Getting the clicked position
+    const pos = getEvPos(ev)
+
+    if (!isLineClicked(pos)) return
+    console.log('im here');
+    gIsDrag = true
+    gPrevPos = pos
     document.querySelector('#canvas').style.cursor = 'grabbing'
 }
 
 function onMove(ev) {
-    if (!gIsDrag) return
     const pos = getEvPos(ev)
+
+    // Toggles hover states over the text lines
+    if (document.querySelector('#canvas').style.cursor === '') {
+        
+        if (!isLineClicked(pos)) return
+        document.querySelector('#canvas').style.cursor = 'grab'
+
+    } else if (document.querySelector('#canvas').style.cursor === 'grab') {
+
+        if (!isLineClicked(pos)) {
+            document.querySelector('#canvas').style.cursor = ''
+            return
+        }
+    }
+
+    // Sets the drag once clicked a line
+    if (!gIsDrag) return
     const dx = pos.x - gPrevPos.x
     const dy = pos.y - gPrevPos.y
     moveLine(dx, dy, gClickedLineIdx)
