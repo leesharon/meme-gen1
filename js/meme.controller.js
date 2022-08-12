@@ -8,12 +8,12 @@ let gCtx
 function renderMeme() {
     gElCanvas = document.querySelector('#canvas')
     gCtx = gElCanvas.getContext('2d')
-    const meme = getMeme()
     
-    renderImg(meme)
+    renderImg()
 }
 
-function renderImg(meme) {
+function renderImg() {
+    const meme = getMeme()
     const imgURL = getImgURLById(meme.selectedImgId)
     const img = new Image
     img.src = imgURL
@@ -156,3 +156,36 @@ function onRemoveSelectedLine() {
 function onToggleColorMenu() {
     document.querySelector('.clr-input').click()
 }
+
+function onShareMeme() {
+    uploadImg(true)
+}
+
+function onImgInputIcon() {
+    document.querySelector('.input-img').click()
+}
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderImg1)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+
+    const reader = new FileReader()
+
+    reader.onload = (event) => {
+        const img = new Image()
+        img.src = event.target.result
+        img.onload = onImageReady.bind(null, img)
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+function renderImg1(img) {
+    gCtx.drawImage(img, 0, 0, gElCanvas.width, gElCanvas.height)
+    uploadImg()
+    setTimeout(() => {
+        setMemeNewImg(getImgURL())
+    }, 1000);
+}
+

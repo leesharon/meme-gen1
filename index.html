@@ -24,7 +24,7 @@
                     <li onclick="onToggleActive(this)" class="item3"><a class="flex align-center list-item"> About</a></li>
                 </ul>
             </nav>
-            <button class="btn-menu" onclick="onToggleMenu()"><i class="fa-solid fa-bars"></i></button>
+            <button class="btn-menu" onclick="onToggleMenu()"><i style="color: white;" class="fa-solid fa-bars"></i></button>
         </div>
     </header>
 
@@ -79,6 +79,9 @@
                 <button class="add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
                 <button class="remove-line" onclick="onRemoveSelectedLine()"><i class="fa-solid fa-trash-can"></i></button>
                 <button class="btn-save" onclick="onSaveMeme()"><i class="fa-solid fa-floppy-disk"></i></button>
+                <img class="icon-share" onclick="onShareMeme()" src="img/share.svg" alt="">
+                <img class="icon-upload" onclick="onImgInputIcon()" src="img/folder-add.svg" alt="">
+                <input hidden type="file" onchange="onImgInput(event)" name="" class="input-img">
             </div>
         </div>
     </section>

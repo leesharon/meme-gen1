@@ -30,8 +30,9 @@
     grid-template-rows: 1fr 0.2fr 1fr 1fr;
     grid-template-areas: 'tx   tx   tx   tx   tx   tx'
                          ' .    .    .    .    .    .'
-                         ' .   de   in   sw   cl    .'
-                         ' .   sv   rl   al   clf   .';
+                         ' .   de   in   sw   cl    clf'
+                         ' .   sv   rl   al   .    .'
+                         ' .   sh   up   .    .    .';
     gap: 10px;
 }
 
@@ -101,5 +102,13 @@
     /* grid-column: 2 / 3;
     grid-row: 4/ 5; */
     grid-area: sv;
+}
+
+.meme-editor-container .icon-share {
+    grid-area: sh;
+}
+
+.meme-editor-container .icon-upload {
+    grid-area: up;
 }
 

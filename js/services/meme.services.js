@@ -201,8 +201,15 @@ function getMemesFromStorage() {
    return loadFromStorage(STORAGE_KEY)
 }
 
-
 function moveLine(x, y) {
        gMeme.lines[0].pos.x += x
        gMeme.lines[0].pos.y += y
+}
+
+function setMemeNewImg(url) {
+    const imgId = gImgs.length + 1
+    const newImg = { id: imgId, url: url, keywords: [] }
+
+    gMeme.selectedImgId = imgId
+    gImgs.push(newImg)
 }

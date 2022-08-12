@@ -1,24 +1,18 @@
 'use strict'
 
-let gUploadedImgURL
+let gImgURL
 
 // *** Upload a picture to the canvas. ***
-
-function uploadImg() {
+function uploadImg(isShare = false) {
     const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
 
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
-        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        // document.querySelector('.user-msg').innerText = `Your photo is available here: ${uploadedImgUrl}`
-        gUploadedImgURL = uploadedImgUrl
-
-        // document.querySelector('.share-container').innerHTML = `
-        // <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-        //    Share   
-        // </a>`
+        gImgURL = uploadedImgUrl
+        
+        if (isShare) window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`, '_blank')
     }
-    doUploadImg(imgDataUrl, onSuccess)
+    doUploadImg(imgDataUrl, onSuccess);
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {
@@ -32,7 +26,6 @@ function doUploadImg(imgDataUrl, onSuccess) {
         })
         .then(res => res.text())
         .then((url) => {
-            console.log('Got back live url:', url)
             onSuccess(url)
         })
         .catch((err) => {
@@ -40,6 +33,6 @@ function doUploadImg(imgDataUrl, onSuccess) {
         })
 }
 
-function getUploadedImgURL() {
-    return gUploadedImgURL
+function getImgURL() {
+    return gImgURL
 }
