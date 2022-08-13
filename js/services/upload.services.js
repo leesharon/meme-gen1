@@ -37,8 +37,3 @@ function getImgURL() {
     return gImgURL
 }
 
-function downloadCanvas(elLink) {
-    const data = gElCanvas.toDataURL();
-    elLink.href = data;
-    elLink.download = 'canvas';
-}

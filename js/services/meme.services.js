@@ -260,3 +260,26 @@ function setMemeLinesPosition(elCanvas) {
         }
     })
 }
+
+function isLineClicked(clickedPos) {
+    const lines = getMemeLines()
+    // Checks if the clickedpos is in the borders of one of the lines
+    let clickedLine
+    clickedLine = lines.find((line, idx) => {
+        const lineSize = line.fontSize
+        const width = getWidth(line.txt, lineSize)
+        const x = line.pos.x
+        const y = line.pos.y
+
+        const maxX = x + (width / 2)
+        const minX = x - (width / 2)
+        const maxY = y
+        const minY = y - lineSize
+
+        if (clickedPos.x <= maxX && clickedPos.x >= minX && clickedPos.y >= minY && clickedPos.y <= maxY) {
+            gClickedLineIdx = idx
+            return true
+        }
+    })
+    return clickedLine
+}

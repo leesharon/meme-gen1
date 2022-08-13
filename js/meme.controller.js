@@ -223,19 +223,9 @@ function onDown(ev) {
 function onMove(ev) {
     const pos = getEvPos(ev)
 
-    // Toggles hover states over the text lines
-    if (document.querySelector('#canvas').style.cursor === '') {
-        
-        if (!isLineClicked(pos)) return
-        document.querySelector('#canvas').style.cursor = 'grab'
+    toggleCursorHoveredLines(pos)
 
-    } else if (document.querySelector('#canvas').style.cursor === 'grab') {
-
-        if (!isLineClicked(pos)) {
-            document.querySelector('#canvas').style.cursor = ''
-            return
-        }
-    }
+    
 
     // Sets the drag once clicked a line
     if (!gIsDrag) return
@@ -249,29 +239,6 @@ function onMove(ev) {
 function onUp() {
     gIsDrag = false
     document.querySelector('#canvas').style.cursor = 'grab'
-}
-
-function isLineClicked(clickedPos) {
-    const lines = getMemeLines()
-    // Checks if the clickedpos is in the borders of one of the lines
-    let clickedLine
-    clickedLine = lines.find((line, idx) => {
-        const lineSize = line.fontSize
-        const width = getWidth(line.txt, lineSize)
-        const x = line.pos.x
-        const y = line.pos.y
-
-        const maxX = x + (width / 2)
-        const minX = x - (width / 2)
-        const maxY = y
-        const minY = y - lineSize
-
-        if (clickedPos.x <= maxX && clickedPos.x >= minX && clickedPos.y >= minY && clickedPos.y <= maxY) {
-            gClickedLineIdx = idx
-            return true
-        }
-    })
-    return clickedLine
 }
 
 function getEvPos(ev) {
@@ -297,4 +264,20 @@ function onDownloadCanvas(elLink) {
     const data = gElCanvas.toDataURL()
     elLink.href = data;
     elLink.download = 'canvas'
+}
+
+function toggleCursorHoveredLines(pos) {
+    // Toggles hover states over the text lines
+    if (document.querySelector('#canvas').style.cursor === '') {
+
+        if (!isLineClicked(pos)) return
+        document.querySelector('#canvas').style.cursor = 'grab'
+
+    } else if (document.querySelector('#canvas').style.cursor === 'grab') {
+
+        if (!isLineClicked(pos)) {
+            document.querySelector('#canvas').style.cursor = ''
+            return
+        }
+    }
 }
