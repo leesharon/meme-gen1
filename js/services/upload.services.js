@@ -4,7 +4,7 @@ let gImgURL
 
 // *** Upload a picture to the canvas. ***
 function uploadImg(isShare = false) {
-    const imgDataUrl = gElCanvas.toDataURL("image/jpeg");
+    const imgDataUrl = gElCanvas.toDataURL("image/jpeg")
 
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
@@ -12,7 +12,7 @@ function uploadImg(isShare = false) {
 
         if (isShare) window.open(`https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}`, '_blank')
     }
-    doUploadImg(imgDataUrl, onSuccess);
+    doUploadImg(imgDataUrl, onSuccess)
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {

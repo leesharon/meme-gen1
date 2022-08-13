@@ -1,5 +1,6 @@
 /* For Mobile Only*/
 @media (max-width: 700px) {
+
     .main-header {
         min-height: 70px;
     }
@@ -37,9 +38,19 @@
     .main-header .main-nav-list .list-item {
         width: 100%;
     }
+
+    .meme-editor-container .main-layout .edit-menu{
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-areas: 'txt   txt   txt   txt   txt'
+                             ' .   switch  addl  rmvl   .'
+                             ' .    dec   inc   clr   clrf'
+                             'save  save   upload   share     share'
+    }
 }
 
 @media (max-width: 980px) {
+
     .filter-list-container {
         display: none;
     }
@@ -51,14 +62,14 @@
 
 
 @media (min-width: 600px) {
+
     .main-layout {
         max-width: 570px;
     }
-
-    .gallery img {}
 }
 
 @media (min-width: 720px) {
+
     .main-layout {
         max-width: 700px;
     }
@@ -96,7 +107,6 @@
         margin-bottom: 35px;
     }
 
-
     .meme-editor-container .edit-menu .grid-item {
         padding: 5px 6px;
     }
@@ -112,10 +122,10 @@
     .main-footer .main-layout>* {
         margin-bottom: 32px;
     }
-
 }
 
 @media (min-width: 980px) {
+
     .main-layout {
         max-width: 950px;
     }
@@ -132,6 +142,7 @@
 }
 
 @media (min-width: 1100px) {
+    
     .main-layout {
         max-width: 1050px;
     }

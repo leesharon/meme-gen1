@@ -66,7 +66,7 @@ function onSetColor(color) {
 }
 
 function clearCanvas() {
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height);
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
 }
 
 function onSetLineTxt(txt) {

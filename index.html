@@ -6,13 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Gen</title>
-    <link rel="stylesheet" href="lib/font-awesome/all.css">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="fonts/font-awesome/webfonts/all.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body onload="onInit()">
-    <div onclick="onToggleMenu()" class="main-screen"></div>
-    <div class="width-test" hidden></div>
+
     <!-- Main Header -->
     <header class="main-header flex justify-center">
         <div class="header-layout main-layout flex align-center">
@@ -98,6 +97,9 @@
         </div>
     </footer>
 
+    <div onclick="onToggleMenu()" class="main-screen"></div>
+    <div class="width-test" hidden></div>
+
     <script src="js/services/utils.services.js"></script>
     <script src="js/services/storage.services.js"></script>
     <script src="js/services/upload.services.js"></script>
@@ -105,6 +107,7 @@
     <script src="js/meme.controller.js"></script>
     <script src="js/meme-gallery.controller.js"></script>
     <script src="js/gallery.controller.js"></script>
+
 </body>
 
 </html>
