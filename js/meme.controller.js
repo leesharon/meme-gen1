@@ -5,6 +5,7 @@ const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 let gElCanvas
 let gCtx
 let gIsDrag = false
+let gIsResize = false
 let gPrevPos
 let gClickedLineIdx
 
@@ -12,7 +13,7 @@ function renderMeme() {
     gElCanvas = document.querySelector('#canvas')
     gCtx = gElCanvas.getContext('2d')
 
-    setMemeLinesPosition(gElCanvas)
+    setMemeLinesData(gElCanvas)
     renderImg()
     addMouseListeners()
     addTouchListeners()
@@ -32,18 +33,18 @@ function renderImg() {
 }
 
 function drawLines(lines) {
-    lines.forEach(line => drawText(line.pos.x, line.pos.y, line.txt, line.fontSize, line.color, line.strokeColor))
+    lines.forEach(line => drawText(line.pos.x, line.pos.y, line.txt, line.fontSize, line.color, line.strokeColor, line.maxWidth))
 }
 
-function drawText(x, y, txt, fontSize, color, strokeColor = 'black') {
+function drawText(x, y, txt, fontSize, color, strokeColor = 'black', maxWidth) {
     gCtx.beginPath()
     gCtx.textAlign = 'center'
     gCtx.lineWidth = 1
     gCtx.font = fontSize + 'px' + ' Impact'
     gCtx.fillStyle = color
-    gCtx.fillText(txt, x, y, gElCanvas.width * 0.8)
+    gCtx.fillText(txt, x, y, maxWidth)
     gCtx.strokeStyle = strokeColor
-    gCtx.strokeText(txt, x, y, gElCanvas.width * 0.8)
+    gCtx.strokeText(txt, x, y, maxWidth)
     gCtx.closePath()
 }
 
@@ -203,21 +204,17 @@ function onDown(ev) {
     // Getting the clicked position
     const pos = getEvPos(ev)
 
-    if (!isLineClicked(pos)) return
-    console.log('im here');
-    gIsDrag = true
-    gPrevPos = pos
-}
+    let cursorStyle = document.querySelector('#canvas').style.cursor
 
-function onDown(ev) {
-    // Getting the clicked position
-    const pos = getEvPos(ev)
+    if (cursorStyle === 'ew-resize') {
+        gIsResize = true
 
-    if (!isLineClicked(pos)) return
-    console.log('im here');
-    gIsDrag = true
+    } else if (cursorStyle === 'grab') {
+        gIsDrag = true
+        document.querySelector('#canvas').style.cursor = 'grabbing'
+
+    }
     gPrevPos = pos
-    document.querySelector('#canvas').style.cursor = 'grabbing'
 }
 
 function onMove(ev) {
@@ -225,20 +222,29 @@ function onMove(ev) {
 
     toggleCursorHoveredLines(pos)
 
-    
-
-    // Sets the drag once clicked a line
-    if (!gIsDrag) return
     const dx = pos.x - gPrevPos.x
     const dy = pos.y - gPrevPos.y
-    moveLine(dx, dy, gClickedLineIdx)
+
+    // resize line
+    if (gIsResize) {
+        setLineMaxWidth(dx, gClickedLineIdx)
+
+    } else if (gIsDrag) { // Sets the drag once clicked a line
+        moveLine(dx, dy, gClickedLineIdx)
+    }
+
     gPrevPos = pos
     renderMeme()
 }
 
 function onUp() {
-    gIsDrag = false
-    document.querySelector('#canvas').style.cursor = 'grab'
+    if (gIsDrag) {
+        gIsDrag = false
+        document.querySelector('#canvas').style.cursor = 'grab'
+    } else if (gIsResize) {
+        gIsResize = false
+        document.querySelector('#canvas').style.cursor = 'ew-resize'
+    }
 }
 
 function getEvPos(ev) {
@@ -250,12 +256,10 @@ function getEvPos(ev) {
     if (gTouchEvs.includes(ev.type)) {
         ev.preventDefault()
         ev = ev.changedTouches[0]
-        console.log(ev)
         pos = {
             x: ev.pageX - ev.target.offsetLeft,
             y: ev.pageY - ev.target.offsetTop
         }
-        console.log('getEvPos ~ pos', pos)
     }
     return pos
 }
@@ -267,17 +271,46 @@ function onDownloadCanvas(elLink) {
 }
 
 function toggleCursorHoveredLines(pos) {
+    let cursorStyle = document.querySelector('#canvas').style.cursor
+
+    if (cursorStyle === '') {
+        if (!isLineHovered(pos)) return
+    }
+
     // Toggles hover states over the text lines
-    if (document.querySelector('#canvas').style.cursor === '') {
-
-        if (!isLineClicked(pos)) return
-        document.querySelector('#canvas').style.cursor = 'grab'
-
-    } else if (document.querySelector('#canvas').style.cursor === 'grab') {
-
-        if (!isLineClicked(pos)) {
+    if (cursorStyle === 'grab' || cursorStyle === 'ew-resize') {
+        if (!isLineHovered(pos)) {
             document.querySelector('#canvas').style.cursor = ''
-            return
         }
     }
+}
+
+function isLineHovered(clickedPos) {
+    const lines = getMemeLines()
+    // Checks if the clickedpos is in the borders of one of the lines
+    let hoveredLine
+    hoveredLine = lines.find((line, idx) => {
+        const lineSize = line.fontSize
+        const width = line.maxWidth
+        const x = line.pos.x
+        const y = line.pos.y
+
+        const maxX = x + (width / 2)
+        const minX = x - (width / 2)
+        const maxY = y
+        const minY = y - lineSize
+
+        // inside line 
+        if (clickedPos.x <= maxX && clickedPos.x >= minX && clickedPos.y >= minY && clickedPos.y <= maxY) {
+            document.querySelector('#canvas').style.cursor = 'grab'
+            gClickedLineIdx = idx
+
+            // on corner
+            if (clickedPos.x >= maxX - 12) {
+                document.querySelector('#canvas').style.cursor = 'ew-resize'
+            }
+            return true
+        }
+    })
+    return hoveredLine
 }

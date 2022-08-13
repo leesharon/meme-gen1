@@ -5,11 +5,11 @@
 
 .gallery .main-layout {
     flex-wrap: wrap;
+    margin: 15px 0px;
     gap: 15px;
-    margin: 15px;
 }
 
 .gallery img {
     object-fit: contain;
-    max-width: 140px;
+    max-width: 175px;
 }

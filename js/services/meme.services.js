@@ -236,12 +236,10 @@ function setKeywordsValue(keywordName) {
     gKeywords[keywordIdx].value += 0.05
 }
 
-function getMemeLines() {
-    return gMeme.lines
-}
-
-function setMemeLinesPosition(elCanvas) {
+function setMemeLinesData(elCanvas) {
     gMeme.lines.forEach((line, idx) => {
+
+        // Sets the lines positions
         if (!line.pos) {
             const pos = {}
             pos['x'] = elCanvas.width / 2
@@ -258,28 +256,19 @@ function setMemeLinesPosition(elCanvas) {
 
             gMeme.lines[idx].pos = pos
         }
+
+        // Sets the lines max width
+        if (!line.maxWidth) {
+            const maxWidth = getWidth(line.txt, line.fontSize - 8)
+            gMeme.lines[idx].maxWidth = maxWidth
+        }
     })
 }
 
-function isLineClicked(clickedPos) {
-    const lines = getMemeLines()
-    // Checks if the clickedpos is in the borders of one of the lines
-    let clickedLine
-    clickedLine = lines.find((line, idx) => {
-        const lineSize = line.fontSize
-        const width = getWidth(line.txt, lineSize)
-        const x = line.pos.x
-        const y = line.pos.y
+function getMemeLines() {
+    return gMeme.lines
+}
 
-        const maxX = x + (width / 2)
-        const minX = x - (width / 2)
-        const maxY = y
-        const minY = y - lineSize
-
-        if (clickedPos.x <= maxX && clickedPos.x >= minX && clickedPos.y >= minY && clickedPos.y <= maxY) {
-            gClickedLineIdx = idx
-            return true
-        }
-    })
-    return clickedLine
+function setLineMaxWidth(dx, lineIdx) {
+    gMeme.lines[lineIdx].maxWidth += dx
 }

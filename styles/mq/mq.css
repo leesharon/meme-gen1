@@ -37,7 +37,16 @@
     .main-header .main-nav-list .list-item {
         width: 100%;
     }
+}
 
+@media (max-width: 980px) {
+    .filter-list-container {
+        display: none;
+    }
+
+    .filter-bar .main-layout {
+        justify-content: center;
+    }
 }
 
 
@@ -70,25 +79,40 @@
         border-right: 1px solid #1d1d1d;
     }
 
-    .main-footer {
-        min-height: 200px;
+    .gallery .main-layout {
+        margin: 15px;
     }
 
-    .main-footer .main-layout > * {
-        margin-bottom: 32px;
+    .meme-editor-container .main-layout .edit-menu {
+        grid-template-areas: 'txt   txt   txt   txt   txt'
+            ' .   switch  addl  rmvl   .'
+            ' .     .     .     .     .'
+            ' .   dec   inc   clr   clrf'
+            ' .   .   upload   .     .'
+            'save save    .   share  share';
     }
 
     .meme-editor-container .main-layout #canvas {
         margin-bottom: 35px;
     }
 
-    .meme-editor-container .main-layout .edit-menu > *{
+
+    .meme-editor-container .edit-menu .grid-item {
         padding: 5px 6px;
     }
 
     i {
         font-size: 1.8em;
     }
+
+    .main-footer {
+        min-height: 200px;
+    }
+
+    .main-footer .main-layout>* {
+        margin-bottom: 32px;
+    }
+
 }
 
 @media (min-width: 980px) {
