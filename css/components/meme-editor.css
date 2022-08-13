@@ -70,9 +70,11 @@
     grid-area: clrf;
 }
 
-.meme-editor-container .edit-menu .color-change{
+.meme-editor-container .edit-menu .fa-palette{
     grid-area: clr;
-    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .meme-editor-container .add-line {
