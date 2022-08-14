@@ -74,8 +74,8 @@
         max-width: 700px;
     }
 
-    .gallery img {
-        max-width: 200px;
+    .gallery img, .saved-memes img{
+        max-width: 250px;
     }
 
     .main-footer {
@@ -97,10 +97,9 @@
     .meme-editor-container .main-layout .edit-menu {
         grid-template-areas: 'txt   txt   txt   txt   txt'
             ' .   switch  addl  rmvl   .'
-            ' .     .     .     .     .'
             ' .   dec   inc   clr   clrf'
-            ' .   .   upload   .     .'
-            'save save    .   share  share';
+            ' .   save   .   upload     .'
+            'download download    .   share  share';
     }
 
     .meme-editor-container .main-layout #canvas {
@@ -130,7 +129,7 @@
         max-width: 950px;
     }
 
-    .gallery img {
+    .gallery img, .saved-memes img {
         max-width: 300px;
     }
 

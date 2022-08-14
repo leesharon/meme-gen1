@@ -1,0 +1,24 @@
+
+.modal-user-msg {
+    background-color: #7DCE13;
+    color: white;
+    font-weight: 500;
+    font-size: 1.2em;
+    margin: 0;
+    height: 100px;
+    width: 200px;
+    position: fixed;
+    bottom: 0;
+    right: 100px;
+    border-radius: 40px;
+    transform: translateY(100%);
+    transition: transform 0.6s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.modal-user-msg.modal-opened {
+    transform: translateY(-30%);
+}

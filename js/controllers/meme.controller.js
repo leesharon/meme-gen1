@@ -48,14 +48,8 @@ function drawText(x, y, txt, fontSize, color, strokeColor = 'black', maxWidth) {
     gCtx.closePath()
 }
 
-function onIncreaseFont() {
-    increaseFont()
-    renderMeme()
-    setTimeout(() => onSetLineFocus(), 10)
-}
-
-function onDecreaseFont() {
-    decreaseFont()
+function onChangeFontSize(isIncrease) {
+    changeFontSize(isIncrease)
     renderMeme()
     setTimeout(() => onSetLineFocus(), 10)
 }
@@ -63,10 +57,6 @@ function onDecreaseFont() {
 function onSetColor(color) {
     setColor(color)
     renderMeme()
-}
-
-function clearCanvas() {
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
 }
 
 function onSetLineTxt(txt) {
@@ -78,10 +68,11 @@ function onSetLineTxt(txt) {
 function onSetLineFocus() {
     const line = getSelectedLine()
     const lineSize = line.fontSize
-    const txt = document.querySelector('.txt-input').value
+    const txt = line.txt
 
-    let width = getWidth(txt, lineSize)
-    width = width - 13 * width / 100
+    gCtx.font = lineSize + 'px' + ' Impact'
+
+    const width = gCtx.measureText(txt).width
     const height = lineSize + 10
 
     const x = line.pos.x - (width / 2)
@@ -90,9 +81,9 @@ function onSetLineFocus() {
     drawRect(x, y, height, width)
 }
 
-function onSwitchSelectedLine() {
+function onSwitchSelectedLine(selectedLineIdx) {
     setTimeout(() => {
-        switchSelectedLine()
+        switchSelectedLine(selectedLineIdx)
         const txt = getSelectedLineTxt()
         document.querySelector('.txt-input').value = txt
 
@@ -110,18 +101,6 @@ function drawRect(x, y, height, width) {
     gCtx.closePath()
 }
 
-function getLineAlign() {
-    const meme = getMeme()
-    const align = meme.lines[meme.selectedLineIdx].align
-    let y
-    if (align === 'top') y = gElCanvas.height / 6
-    else if (align === 'bottom') y = gElCanvas.height * 0.9
-    else if (align === 'middle') y = gElCanvas.height / 2
-    else if (align === 'middle-top') y = gElCanvas.height * 0.32
-    else if (align === 'middle-bottom') y = gElCanvas.height * 0.72
-    return y
-}
-
 function getWidth(txt, lineSize) {
     // checking div's width with the txt I need
     const div = document.querySelector('.width-test')
@@ -133,10 +112,6 @@ function getWidth(txt, lineSize) {
     div.style.display = "none"
 
     return width
-}
-
-function onSaveMeme() {
-    saveMeme()
 }
 
 function onAddLine() {
@@ -186,8 +161,6 @@ function renderImg1(img) {
     }, 1000)
 }
 
-// Grabbing lines on meme funcs
-
 function addMouseListeners() {
     gElCanvas.addEventListener('mousemove', onMove)
     gElCanvas.addEventListener('mousedown', onDown)
@@ -215,6 +188,8 @@ function onDown(ev) {
 
     }
     gPrevPos = pos
+
+    if (isLineHoveredOrClicked(clickedPos)) switchSelectedLine(getSelectedLine)
 }
 
 function onMove(ev) {
@@ -274,18 +249,18 @@ function toggleCursorHoveredLines(pos) {
     let cursorStyle = document.querySelector('#canvas').style.cursor
 
     if (cursorStyle === '') {
-        if (!isLineHovered(pos)) return
+        if (!isLineHoveredOrClicked(pos)) return
     }
 
     // Toggles hover states over the text lines
     if (cursorStyle === 'grab' || cursorStyle === 'ew-resize') {
-        if (!isLineHovered(pos)) {
+        if (!isLineHoveredOrClicked(pos)) {
             document.querySelector('#canvas').style.cursor = ''
         }
     }
 }
 
-function isLineHovered(clickedPos) {
+function isLineHoveredOrClicked(clickedPos) {
     const lines = getMemeLines()
     // Checks if the clickedpos is in the borders of one of the lines
     let hoveredLine
@@ -313,4 +288,22 @@ function isLineHovered(clickedPos) {
         }
     })
     return hoveredLine
+}
+
+function onSaveMeme() {
+    displayUserMsg(true)
+    saveMeme()
+}
+
+function displayUserMsg(isSave) {
+    const elModal = document.querySelector('.modal-user-msg')
+    const elMsg = document.querySelector('.modal-user-msg p')
+
+    elMsg.innerText = isSave ? 'Meme was saved successfully' : 'Meme was deleted successfully'
+    elModal.style.backgroundColor = isSave ? '#7DCE13' : '#FF1E00'
+    elModal.classList.add('modal-opened')
+
+    setTimeout(() => {
+        elModal.classList.remove('modal-opened')
+    }, 1800);
 }

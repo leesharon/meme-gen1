@@ -20,7 +20,7 @@ const gLineStrs = [
     'you sure about that?'
 ]
 
-const gMeme = {
+let gMeme = {
     selectedImgId: 1,
     selectedLineIdx: 0,
     lines: [
@@ -39,25 +39,25 @@ const gMeme = {
             strokeColor: 'black'
         }
     ],
-    memeUrl: null
+    imgURL: null
 }
 
 function setLineTxt(txt) {
-   getSelectedLine().txt = txt
+    getSelectedLine().txt = txt
 }
 
 function setColor(color) {
-   getSelectedLine().color = color
+    getSelectedLine().color = color
 }
 
-function increaseFont() {
-    if (getSelectedLine().fontSize === 80) return
-   getSelectedLine().fontSize += 10
-}
-
-function decreaseFont() {
-    if (getSelectedLine().fontSize === 20) return
-   getSelectedLine().fontSize -= 10
+function changeFontSize(isIncrease) {
+    if (isIncrease) {
+        if (getSelectedLine().fontSize >= 80) return
+        getSelectedLine().fontSize += 10
+    } else {
+        if (getSelectedLine().fontSize <= 20) return
+        getSelectedLine().fontSize -= 10
+    }
 }
 
 function setImage(imgId) {
@@ -68,9 +68,17 @@ function getMeme() {
     return gMeme
 }
 
-function switchSelectedLine() {
-    gMeme.selectedLineIdx ++
-    if (gMeme.selectedLineIdx === gMeme.lines.length) gMeme.selectedLineIdx = 0
+function setMeme(meme) {
+    gMeme = meme
+}
+
+function switchSelectedLine(selectedLineIdx) {
+    if (selectedLineIdx) {
+        gMeme.selectedLineIdx = selectedLineIdx
+    } else {
+        gMeme.selectedLineIdx++
+        if (gMeme.selectedLineIdx === gMeme.lines.length) gMeme.selectedLineIdx = 0
+    }
 }
 
 function getSelectedLine() {
@@ -100,24 +108,38 @@ function setFlexibleMemeOptions() {
 }
 
 function saveMeme() {
-    let savedMemes = _loadMemeFromStorage()
+    let savedMemes = _loadMemesFromStorage()
     if (!savedMemes) savedMemes = []
 
+    const memeImgURL = getImgURLById(gMeme.selectedImgId)
+    gMeme.imgURL = memeImgURL
+
+    savedMemes.push(gMeme)
+    _saveMemesToStorage(savedMemes)
+
+
     // sets an image URL for the meme to display later in the gallery
-    uploadImg()
-    setTimeout(() => {
-        gMeme['memeUrl'] = getUploadedImgURL()
-        savedMemes.push(gMeme)
-        saveToStorage(savedMemes)
-    }, 2000)
+    // uploadImg()
+    // setTimeout(() => {
+    //     gMeme['memeUrl'] = getUploadedImgURL()
+
+    // }, 2000)
 }
 
-function _saveMemeToStorage(val) {
+function savedMemesToStorage(memes) {
+    _saveMemesToStorage(memes)
+}
+
+function getSavedMemesFromStorage() {
+    return _loadMemesFromStorage()
+}
+
+function _saveMemesToStorage(val) {
     saveToStorage(STORAGE_KEY, val)
 }
 
-function _loadMemeFromStorage() {
-    loadFromStorage(STORAGE_KEY)
+function _loadMemesFromStorage() {
+    return loadFromStorage(STORAGE_KEY)
 }
 
 function removeSelectedLine() {
@@ -181,15 +203,6 @@ function setMemeNewImg(url) {
     gImgs.push(newImg)
 }
 
-function getKeywords() {
-    return gKeywords
-}
-
-function setKeywordsValue(keywordName) {
-    const keywordIdx = gKeywords.findIndex(keyword => keyword.name === keywordName.toLowerCase())
-    gKeywords[keywordIdx].value += 0.05
-}
-
 function setMemeLinesData(elCanvas) {
     gMeme.lines.forEach((line, idx) => {
 
@@ -212,10 +225,10 @@ function setMemeLinesData(elCanvas) {
         }
 
         // Sets the lines max width
-        if (!line.maxWidth) {
-            const maxWidth = getWidth(line.txt, line.fontSize - 8)
-            gMeme.lines[idx].maxWidth = maxWidth
-        }
+        // if (!line.maxWidth) {
+        // const maxWidth = getWidth(line.txt, line.fontSize - 8)
+        // gMeme.lines[idx].maxWidth = 300
+        // }
     })
 }
 

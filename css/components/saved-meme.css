@@ -1,0 +1,34 @@
+
+
+.saved-memes {
+    display: none;
+    min-height: 80vh;
+    background-color: #e3e3e3;
+}
+
+.saved-memes .main-layout {
+    flex-wrap: wrap;
+    padding: 40px 0px;
+    gap: 15px;
+    align-content: flex-start;
+}
+
+.saved-memes .img-wrap {
+    position: relative;
+}
+
+.saved-memes img {
+    object-fit: contain;
+    max-width: 175px;
+}
+
+.saved-memes .btn-remove-meme {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #ff1e0000;
+    border-radius: 50%;
+    padding: 5px;
+    border: none;
+    font-size: 1.3em;
+}

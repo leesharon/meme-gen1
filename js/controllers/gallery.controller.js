@@ -13,11 +13,19 @@ function renderGallery() {
     document.querySelector('.gallery .main-layout').innerHTML = strHTML.join('')
 }
 
-function onImgSelect(imgId = getRandomIntInclusive(1, getImgsLength())) {
+function onImgSelect(imgId, isFlexible, savedMemeIdx) {
+    if (isFlexible) imgId = getRandomIntInclusive(1, getImgsLength())
+
+    if(savedMemeIdx) {
+        const memes = getSavedMemesFromStorage()
+        const meme = memes[savedMemeIdx]
+        setMeme(meme)
+    }
+
     document.querySelector('.gallery').style.display = 'none'
     document.querySelector('.filter-bar').style.display = 'none'
+    document.querySelector('.saved-memes').style.display = 'none'
     document.querySelector('.meme-editor-container').style.display = 'flex'
-    document.querySelector('.main-footer').style.position = 'fixed'
 
     setImage(imgId)
     renderMeme()
@@ -26,29 +34,42 @@ function onImgSelect(imgId = getRandomIntInclusive(1, getImgsLength())) {
 // renders search bar keywords
 function renderKeywordsList() {
     const keywords = getKeywords()
+
+    // Handles words popularity size changes
     let keywordsTotalValue = 0
     keywords.forEach(keyword => keywordsTotalValue += keyword.value)
+
+    // Renders keywords datalist options
+    let strDataListHTML
+    strDataListHTML = keywords.map(keyword => `
+         <option value=${keyword.name.charAt(0).toUpperCase() + keyword.name.slice(1)}>
+    `).join('')
+
+    document.querySelector('.list-keywords').innerHTML = strDataListHTML
+
+    // Renders keywords ul
     let strHTML
     strHTML = keywords.map(keyword => `
-    <li style="font-size: ${keyword.value * 10 / keywordsTotalValue}em;" onclick="onSetImgFilter(undefined, this)">${keyword.name.charAt(0).toUpperCase() + keyword.name.slice(1)}</li>
+    <li style="font-size: ${keyword.value * 10 / keywordsTotalValue}em;" onclick="onSetImgFilter(this.innerText, true)">
+         ${keyword.name.charAt(0).toUpperCase() + keyword.name.slice(1)}
+    </li>
     `)
 
     document.querySelector('.filter-list').innerHTML = strHTML.join('')
 }
 
-function onFlexibleClick() {
+function onFlexible() {
     setFlexibleMemeOptions()
-    onImgSelect()
+    onImgSelect(undefined, true)
 }
 
-function onSetImgFilter(filterBy, elWord) {
-    if (!filterBy) {
-        filterBy = elWord.innerText
-        setKeywordsValue(elWord.innerText)
-    }
+function onSetImgFilter(filterBy, isClicked) {
+    if (isClicked) document.querySelector('.input-search').value = ''
+
     setImgFilterBy(filterBy)
     renderGallery()
     renderKeywordsList()
+    setKeywordsValue(filterBy)
 }
 
 function onToggleMenu() {
@@ -66,5 +87,5 @@ function onDisplayGallery() {
     document.querySelector('.gallery').style.display = 'flex'
     document.querySelector('.filter-bar').style.display = 'flex'
     document.querySelector('.meme-editor-container').style.display = 'none'
-    document.querySelector('.main-footer').style.position = 'fixed'
+    document.querySelector('.saved-memes').style.display = 'none'
 }

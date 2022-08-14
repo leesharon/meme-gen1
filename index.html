@@ -21,7 +21,7 @@
                         <a class="flex align-center list-item">Gallery</a>
                     </li>
                     <li onclick="onSetActiveClass(this)" class="item2">
-                        <a onclick="renderMemesGallery()" class="flex align-center list-item">Memes</a>
+                        <a onclick="onDisplaySavedMemes()" class="flex align-center list-item">Memes</a>
                     </li>
                     <li onclick="onSetActiveClass(this)" class="item3">
                         <a class="flex align-center list-item"> About</a>
@@ -35,18 +35,11 @@
     <!-- Filter Bar -->
     <section class="filter-bar flex center">
         <div class="flex space-between main-layout">
-            <input class="input-search" placeholder="Enter search keyword" oninput="onSetImgFilter(this.value)" list="filter-words">
+            <input class="input-search" placeholder="Enter search keyword" oninput="onSetImgFilter(this.value)" onfocus="onSetImgFilter(this.value)" list="filter-words">
             <i class="fa-solid fa-magnifying-glass align-self-center"></i>
-            <datalist id="filter-words">
-                <option value="politics">
-                <option value="celebrity">
-                <option value="funny">
-                <option value="baby">
-                <option value="sweet">
-                <option value="animal">
-                <option value="movie">
+            <datalist class="list-keywords" id="filter-words">
             </datalist>
-            <button class="btn-flexible" onclick="onFlexibleClick()">I'm Flexible</button>
+            <button class="btn-flexible" onclick="onFlexible()">I'm Flexible</button>
             <div class="flex align-center filter-list-container">
                 <ul class="clean-list flex align-center filter-list">
                 </ul>
@@ -56,7 +49,7 @@
 
     <!-- Image Gallery -->
     <section class="flex justify-center gallery">
-        <div class="main-layout flex justify-center">
+        <div class="flex justify-center main-layout">
 
         </div>
     </section>
@@ -72,23 +65,24 @@
                     oninput="onSetLineTxt(this.value)" type="text" value="Your text goes here">
                 <input class="clr-input" style="opacity: 0;" onchange="onSetColor(this.value)" type="color"> <!-- not displayed-->
                 <i class="grid-item fa-solid fa-palette" onclick="onToggleColorMenu()"></i>
-                <button class="grid-item font-increase" onclick="onIncreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-plus"></i></button>
-                <button class="grid-item font-decrease" onclick="onDecreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-minus"></i></button>
+                <button class="grid-item font-increase" onclick="onChangeFontSize(true)"><i class="fa-solid fa-font"></i><i class="fa-solid fa-plus"></i></button>
+                <button class="grid-item font-decrease" onclick="onChangeFontSize(false)"><i class="fa-solid fa-font"></i><i class="fa-solid fa-minus"></i></button>
                 <button class="grid-item switch-line" onclick="onSwitchSelectedLine()"><i class="fa-solid fa-repeat"></i></button>
                 <button class="grid-item add-line" onclick="onAddLine()"><i class="fa-solid fa-plus"></i></button>
                 <button class="grid-item remove-line" onclick="onRemoveSelectedLine()"><i class="fa-solid fa-trash-can"></i></button>
-                <a class="grid-item btn btn-save" onclick="onDownloadCanvas(this)">Save</a>
+                <i class="fa-solid fa-floppy-disk flex justify-center align-center grid-item save-meme" onclick="onSaveMeme()"></i>
+                <a class="grid-item btn btn-download" onclick="onDownloadCanvas(this)">Download</a>
                 <a class="grid-item btn btn-share" onclick="onShareMeme()" alt="">Share</a>
                 <img class="grid-item icon-upload" onclick="onImgInputIcon()" src="img/folder-add.svg" alt=""/>
+                <!-- <i class="fa-solid fa-arrow-up-from-line grid-item icon-upload" onclick="onImgInputIcon()"></i> -->
                 <input hidden type="file" onchange="onImgInput(event)" name="" class="input-img"> <!-- not displayed-->
             </div>
         </div>
     </section>
 
     <!-- Saved Memes -->
-    <section class="memes-container">
-        <div class="main-layout">
-
+    <section class="flex justify-center saved-memes">
+        <div class="flex justify-center main-layout">
         </div>
     </section>
 
@@ -103,16 +97,19 @@
     </footer>
 
     <div onclick="onToggleMenu()" class="main-screen"></div>
-    <div class="width-test" hidden></div>
+    <div class="modal-user-msg">
+        <p>Saved meme successfully</p>
+    </div>
 
     <script src="js/services/utils.service.js"></script>
     <script src="js/services/storage.service.js"></script>
     <script src="js/services/upload.service.js"></script>
-    <script src="js/services/meme.service.js"></script>
     <script src="js/services/gallery.service.js"></script>
-    <script src="js/controllers/meme.controller.js"></script>
-    <script src="js/controllers/meme-gallery.controller.js"></script>
+    <script src="js/services/meme.service.js"></script>
+    <script src="js/services/saved-meme.service.js"></script>
     <script src="js/controllers/gallery.controller.js"></script>
+    <script src="js/controllers/saved-meme.contorller.js"></script>
+    <script src="js/controllers/meme.controller.js"></script>
 
 </body>
 

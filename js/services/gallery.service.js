@@ -35,7 +35,7 @@ const gKeywords = [
 let gFilterBy
 
 function getImgsForDisplay() {
-    if (!gFilterBy) return gImgs
+    if (!gFilterBy || gFilterBy === '') return gImgs
 
     const filterBy = gFilterBy.toLowerCase()
     return gImgs.filter(img => {
@@ -54,4 +54,13 @@ function getImgsLength() {
 
 function setImgFilterBy(filterBy) {
     gFilterBy = filterBy
+}
+
+function getKeywords() {
+    return gKeywords
+}
+
+function setKeywordsValue(keywordName) {
+    const keywordIdx = gKeywords.findIndex(keyword => keyword.name === keywordName.toLowerCase())
+    gKeywords[keywordIdx].value += 0.05
 }

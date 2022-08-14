@@ -27,12 +27,12 @@
 .meme-editor-container .main-layout .edit-menu{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: 1fr 1fr 0.2fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: 'txt   txt   txt   txt   txt'
                          ' .   switch  addl  rmvl   .'
                          ' .     .     .     .     .'
-                         ' .    dec   inc   clr   clrf'
-                         'save  save   upload   share     share'
+                         ' save    dec   inc   clr   clrf'
+                         'download  download   upload   share     share'
                          ' .      .      .       .    .  ';
     gap: 10px;
 }
@@ -84,8 +84,12 @@
     grid-area: rmvl;
 }
 
-.meme-editor-container .edit-menu .btn-save {
+.meme-editor-container .edit-menu .save-meme {
     grid-area: save;
+}
+
+.meme-editor-container .edit-menu .btn-download {
+    grid-area: download;
 }
 
 .meme-editor-container .edit-menu .btn-share {
