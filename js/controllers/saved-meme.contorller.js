@@ -1,7 +1,7 @@
 'use strict'
 
 function onDisplaySavedMemes() {
-
+    document.body.classList.remove('menu-opened')
     document.querySelector('.about').style.display = 'none'
     document.querySelector('.gallery').style.display = 'none'
     document.querySelector('.filter-bar').style.display = 'none'

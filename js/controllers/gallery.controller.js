@@ -93,6 +93,7 @@ function onSetActiveClass(elItem) {
 }
 
 function onDisplayGallery() {
+    document.body.classList.remove('menu-opened')
     document.querySelector('.gallery').style.display = 'flex'
     document.querySelector('.filter-bar').style.display = 'flex'
     document.querySelector('.meme-editor-container').style.display = 'none'
@@ -101,6 +102,7 @@ function onDisplayGallery() {
 }
 
 function onDisplayAbout() {
+    document.body.classList.remove('menu-opened')
     document.querySelector('.gallery').style.display = 'none'
     document.querySelector('.filter-bar').style.display = 'none'
     document.querySelector('.meme-editor-container').style.display = 'none'
