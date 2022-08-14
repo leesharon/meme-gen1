@@ -2,6 +2,7 @@
 
 function onDisplaySavedMemes() {
 
+    document.querySelector('.about').style.display = 'none'
     document.querySelector('.gallery').style.display = 'none'
     document.querySelector('.filter-bar').style.display = 'none'
     document.querySelector('.meme-editor-container').style.display = 'none'
@@ -14,10 +15,12 @@ function onDisplaySavedMemes() {
     <div class="img-wrap">
     <img onclick="onImgSelect(${meme.selectedImgId}, false, ${memeIdx})" src='${meme.imgURL}'>
     <button class="btn-remove-meme" onclick="onRemoveSavedMeme(${memeIdx})">
-        <i class="fa-solid fa-xmark"></i>
+    <i class="fa-solid fa-xmark"></i>
     </button>
     </div>
     `).join('')
+    
+    if (!savedMemes.length) strHTML = `<p>you have no saved memes</p>`
     
     document.querySelector('.saved-memes .main-layout').innerHTML = strHTML
 }

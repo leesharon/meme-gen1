@@ -97,4 +97,13 @@ function onDisplayGallery() {
     document.querySelector('.filter-bar').style.display = 'flex'
     document.querySelector('.meme-editor-container').style.display = 'none'
     document.querySelector('.saved-memes').style.display = 'none'
+    document.querySelector('.about').style.display = 'none'
+}
+
+function onDisplayAbout() {
+    document.querySelector('.gallery').style.display = 'none'
+    document.querySelector('.filter-bar').style.display = 'none'
+    document.querySelector('.meme-editor-container').style.display = 'none'
+    document.querySelector('.saved-memes').style.display = 'none'
+    document.querySelector('.about').style.display = 'flex'
 }
