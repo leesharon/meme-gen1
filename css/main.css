@@ -1,6 +1,12 @@
+
+
 /* SETUP  */
+@import '../lib/normalize.css';
 @import 'setup/vars.css';
 @import 'setup/typography.css';
+
+/* ICON-FONTS */
+@import '../fonts/font-awesome/webfonts/all.css';
 
 /* BASE */
 @import 'basic/base.css';

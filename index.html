@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meme Gen</title>
-    <link rel="stylesheet" href="fonts/font-awesome/webfonts/all.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body onload="onInit()">
@@ -15,9 +14,9 @@
     <!-- Main Header -->
     <header class="main-header flex justify-center">
         <div class="flex align-center main-layout header-layout">
-            <img onclick="onDisplayGallery()" class="logo-img" src="img/logo/LOGO.png" alt="Logo Image"/>
+            <img onclick="onDisplayGallery()" class="logo-img" src="img/logo.png" alt="Logo Image"/>
             <nav class="main-nav">
-                <ul class="main-nav-list clean-list flex">
+                <ul class="clean-list flex main-nav-list">
                     <li onclick="onSetActiveClass(this); onDisplayGallery()" class="active item1">
                         <a class="flex align-center list-item">Gallery</a>
                     </li>
@@ -35,7 +34,7 @@
 
     <!-- Filter Bar -->
     <section class="filter-bar flex center">
-        <div class="main-layout flex space-between">
+        <div class="flex space-between main-layout">
             <input class="input-search" placeholder="Enter search keyword" oninput="onSetImgFilter(this.value)" list="filter-words">
             <i class="fa-solid fa-magnifying-glass align-self-center"></i>
             <datalist id="filter-words">
@@ -48,30 +47,30 @@
                 <option value="movie">
             </datalist>
             <button class="btn-flexible" onclick="onFlexibleClick()">I'm Flexible</button>
-            <div class="filter-list-container flex align-center">
-                <ul class="filter-list clean-list flex align-center">
+            <div class="flex align-center filter-list-container">
+                <ul class="clean-list flex align-center filter-list">
                 </ul>
             </div>
         </div>
     </section>
 
     <!-- Image Gallery -->
-    <section class="gallery flex justify-center">
+    <section class="flex justify-center gallery">
         <div class="main-layout flex justify-center">
 
         </div>
     </section>
 
     <!-- MEME Editor -->
-    <section class="meme-editor-container flex justify-center">
-        <div class="main-layout flex flex-col align-center">
+    <section class="flex justify-center meme-editor-container">
+        <div class="flex flex-col align-center main-layout">
             <div class="canvas-container">
                 <canvas id="canvas" width="500px" height="500px"></canvas>
             </div>
             <div class="edit-menu">
                 <input class="grid-item txt-input" onblur="renderMeme()" onfocus="onSetLineFocus()"
                     oninput="onSetLineTxt(this.value)" type="text" value="Your text goes here">
-                <input style="opacity: 0;" class="clr-input" onchange="onSetColor(this.value)" type="color"> <!-- not displayed-->
+                <input class="clr-input" style="opacity: 0;" onchange="onSetColor(this.value)" type="color"> <!-- not displayed-->
                 <i class="grid-item fa-solid fa-palette" onclick="onToggleColorMenu()"></i>
                 <button class="grid-item font-increase" onclick="onIncreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-plus"></i></button>
                 <button class="grid-item font-decrease" onclick="onDecreaseFont()"><i class="fa-solid fa-font"></i><i class="fa-solid fa-minus"></i></button>
@@ -95,7 +94,7 @@
 
     <!-- Main Footer -->
     <footer class="main-footer flex">
-        <div class="main-layout flex flex-col align-center justify-center">
+        <div class="flex flex-col align-center justify-center main-layout">
             <div class="main-logo">Memegen</div>
             <span class="copy-rights">
                 © 2022 memegen.com - All Rights Reserved
@@ -110,6 +109,7 @@
     <script src="js/services/storage.service.js"></script>
     <script src="js/services/upload.service.js"></script>
     <script src="js/services/meme.service.js"></script>
+    <script src="js/services/gallery.service.js"></script>
     <script src="js/controllers/meme.controller.js"></script>
     <script src="js/controllers/meme-gallery.controller.js"></script>
     <script src="js/controllers/gallery.controller.js"></script>

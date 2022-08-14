@@ -1,27 +1,6 @@
 'use strict'
 
 const STORAGE_KEY = 'memeDB'
-const gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
-const gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['politics', 'serious'] },
-    { id: 2, url: 'img/2.jpg', keywords: ['sweet', 'animal'] },
-    { id: 3, url: 'img/3.jpg', keywords: ['sweet', 'animal', 'baby'] },
-    { id: 4, url: 'img/4.jpg', keywords: ['sweet', 'animal'] },
-    { id: 5, url: 'img/5.jpg', keywords: ['sweet', 'baby'] },
-    { id: 6, url: 'img/6.jpg', keywords: ['celebrity', 'info'] },
-    { id: 7, url: 'img/7.jpg', keywords: ['baby'] },
-    { id: 8, url: 'img/8.jpg', keywords: ['celebrity'] },
-    { id: 9, url: 'img/9.jpg', keywords: ['funny', 'baby'] },
-    { id: 10, url: 'img/10.jpg', keywords: ['funny', 'celebrity'] },
-    { id: 11, url: 'img/11.jpg', keywords: ['celebrity'] },
-    { id: 12, url: 'img/12.jpg', keywords: ['celebrity', 'funny'] },
-    { id: 13, url: 'img/13.jpg', keywords: ['celebrity', 'funny'] },
-    { id: 14, url: 'img/14.jpg', keywords: ['celebrity', 'serious'] },
-    { id: 15, url: 'img/15.jpg', keywords: ['celebrity'] },
-    { id: 16, url: 'img/16.jpg', keywords: ['movie', 'funny'] },
-    { id: 17, url: 'img/17.jpg', keywords: ['politics', 'serious'] },
-    { id: 18, url: 'img/18.jpg', keywords: ['movie', 'funny'] },
-]
 
 const gLineStrs = [
     'Hey you, yes you!',
@@ -39,16 +18,6 @@ const gLineStrs = [
     'I\'m sexy and I know it',
     'Woohooooooo',
     'you sure about that?'
-]
-
-const gKeywords = [
-    { name: 'politics', value: 0.8 },
-    { name: 'sweet', value: 1.4 },
-    { name: 'animal', value: 1.2 },
-    { name: 'baby', value: 1.8 },
-    { name: 'celebrity', value: 1.1 },
-    { name: 'funny', value: 2.2 },
-    { name: 'movie', value: 1 }
 ]
 
 const gMeme = {
@@ -73,16 +42,6 @@ const gMeme = {
     memeUrl: null
 }
 
-let gFilterBy
-
-function getImgsForDisplay() {
-    if (!gFilterBy) return gImgs
-
-    const filterBy = gFilterBy.toLowerCase()
-    return gImgs.filter(img => {
-        img.keywords.find(keyword => keyword.toLowerCase().includes(filterBy))})
-}
-
 function setLineTxt(txt) {
    getSelectedLine().txt = txt
 }
@@ -105,17 +64,12 @@ function setImage(imgId) {
     gMeme.selectedImgId = imgId
 }
 
-function getImgURLById(imgId) {
-    const img = gImgs.find(img => imgId === img.id)
-    return img.url
-}
-
 function getMeme() {
     return gMeme
 }
 
 function switchSelectedLine() {
-    gMeme.selectedLineIdx += 1
+    gMeme.selectedLineIdx ++
     if (gMeme.selectedLineIdx === gMeme.lines.length) gMeme.selectedLineIdx = 0
 }
 
@@ -125,10 +79,6 @@ function getSelectedLine() {
 
 function getSelectedLineTxt() {
     return gMeme.lines[gMeme.selectedLineIdx].txt
-}
-
-function getImgsLength() {
-    return gImgs.length
 }
 
 function setFlexibleMemeOptions() {
@@ -150,20 +100,24 @@ function setFlexibleMemeOptions() {
 }
 
 function saveMeme() {
-    let memesDB = loadFromStorage(STORAGE_KEY)
-    if (!memesDB) memesDB = []
+    let savedMemes = _loadMemeFromStorage()
+    if (!savedMemes) savedMemes = []
 
     // sets an image URL for the meme to display later in the gallery
     uploadImg()
     setTimeout(() => {
         gMeme['memeUrl'] = getUploadedImgURL()
-        memesDB.push(gMeme)
-        saveToStorage(STORAGE_KEY, memesDB)
+        savedMemes.push(gMeme)
+        saveToStorage(savedMemes)
     }, 2000)
 }
 
-function setImgFilterBy(filterBy) {
-    gFilterBy = filterBy
+function _saveMemeToStorage(val) {
+    saveToStorage(STORAGE_KEY, val)
+}
+
+function _loadMemeFromStorage() {
+    loadFromStorage(STORAGE_KEY)
 }
 
 function removeSelectedLine() {

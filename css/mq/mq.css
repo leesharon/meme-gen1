@@ -107,7 +107,7 @@
         margin-bottom: 35px;
     }
 
-    .meme-editor-container .edit-menu .grid-item {
+    .meme-editor-container .edit-menu .grid-item:not(.txt-input) {
         padding: 5px 6px;
     }
 
@@ -138,6 +138,10 @@
         height: 65vh;
         flex-direction: row;
         justify-content: space-around;
+    }
+    
+    .meme-editor-container {
+        height: 90vh;
     }
 }
 

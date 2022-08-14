@@ -8,7 +8,7 @@ function onInit() {
 function renderGallery() {
     const imgs = getImgsForDisplay()
     let strHTML = ``
-    strHTML = imgs.map(img => strHTML = `<img onclick="onImgSelect(${img.id})" src=${img.url}/>`)
+    strHTML = imgs.map(img => strHTML = `<img onclick="onImgSelect(${img.id})" src=${img.url}>`)
 
     document.querySelector('.gallery .main-layout').innerHTML = strHTML.join('')
 }
@@ -36,7 +36,6 @@ function renderKeywordsList() {
     document.querySelector('.filter-list').innerHTML = strHTML.join('')
 }
 
-// flexible button click
 function onFlexibleClick() {
     setFlexibleMemeOptions()
     onImgSelect()

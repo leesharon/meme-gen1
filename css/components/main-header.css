@@ -30,6 +30,10 @@
     width: 100%;
 }
 
+.main-header li:last-child .list-item {
+    padding-inline-end: 0;
+}
+
 .main-header .main-nav .main-nav-list > *:hover {
     color: #040a2c;
 }

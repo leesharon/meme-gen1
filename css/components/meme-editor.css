@@ -1,7 +1,7 @@
 .meme-editor-container {
     display: none;
     background-color: #e3e3e3;
-    height: 110vh;
+    height: 106vh;
     padding-top: 15px;
 }
 
@@ -50,7 +50,6 @@
 
 .meme-editor-container .edit-menu .txt-input{
     cursor:text;
-    text-align: center;
     grid-area: txt;
 }
 

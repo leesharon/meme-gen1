@@ -46,6 +46,10 @@ img:hover {
     opacity: 0.85;
 }
 
+input[type="text"]{
+    padding-inline-start: 18px;
+}
+
 button, i {
     cursor: pointer;
 }
