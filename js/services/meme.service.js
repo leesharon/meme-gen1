@@ -76,29 +76,29 @@ const gMeme = {
 let gFilterBy
 
 function getImgsForDisplay() {
-
     if (!gFilterBy) return gImgs
-    return gImgs.filter(img => img.keywords
-        .find(keyword => keyword.toLowerCase()
-            .includes(gFilterBy.toLowerCase())))
+
+    const filterBy = gFilterBy.toLowerCase()
+    return gImgs.filter(img => {
+        img.keywords.find(keyword => keyword.toLowerCase().includes(filterBy))})
 }
 
 function setLineTxt(txt) {
-    gMeme.lines[gMeme.selectedLineIdx].txt = txt
+   getSelectedLine().txt = txt
 }
 
 function setColor(color) {
-    gMeme.lines[gMeme.selectedLineIdx].color = color
+   getSelectedLine().color = color
 }
 
 function increaseFont() {
-    if (gMeme.lines[gMeme.selectedLineIdx].fontSize === 80) return
-    gMeme.lines[gMeme.selectedLineIdx].fontSize += 10
+    if (getSelectedLine().fontSize === 80) return
+   getSelectedLine().fontSize += 10
 }
 
 function decreaseFont() {
-    if (gMeme.lines[gMeme.selectedLineIdx].fontSize === 20) return
-    gMeme.lines[gMeme.selectedLineIdx].fontSize -= 10
+    if (getSelectedLine().fontSize === 20) return
+   getSelectedLine().fontSize -= 10
 }
 
 function setImage(imgId) {

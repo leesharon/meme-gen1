@@ -14,13 +14,19 @@
 
     <!-- Main Header -->
     <header class="main-header flex justify-center">
-        <div class="header-layout main-layout flex align-center">
-            <img onclick="onDisplayGallery()" class="logo-img" src="img/logo/LOGO.png" alt="Logo Image">
+        <div class="flex align-center main-layout header-layout">
+            <img onclick="onDisplayGallery()" class="logo-img" src="img/logo/LOGO.png" alt="Logo Image"/>
             <nav class="main-nav">
                 <ul class="main-nav-list clean-list flex">
-                    <li onclick="onSetActiveClass(this); onDisplayGallery()" class="active item1"><a class="flex align-center list-item">Gallery</a></li>
-                    <li onclick="onSetActiveClass(this)" class="item2"><a onclick="renderMemesGallery()" class="flex align-center list-item">Memes</a></li>
-                    <li onclick="onSetActiveClass(this)" class="item3"><a class="flex align-center list-item"> About</a></li>
+                    <li onclick="onSetActiveClass(this); onDisplayGallery()" class="active item1">
+                        <a class="flex align-center list-item">Gallery</a>
+                    </li>
+                    <li onclick="onSetActiveClass(this)" class="item2">
+                        <a onclick="renderMemesGallery()" class="flex align-center list-item">Memes</a>
+                    </li>
+                    <li onclick="onSetActiveClass(this)" class="item3">
+                        <a class="flex align-center list-item"> About</a>
+                    </li>
                 </ul>
             </nav>
             <button class="btn-menu" onclick="onToggleMenu()"><i style="color: white;" class="fa-solid fa-bars"></i></button>
@@ -74,14 +80,14 @@
                 <button class="grid-item remove-line" onclick="onRemoveSelectedLine()"><i class="fa-solid fa-trash-can"></i></button>
                 <a class="grid-item btn btn-save" onclick="onDownloadCanvas(this)">Save</a>
                 <a class="grid-item btn btn-share" onclick="onShareMeme()" alt="">Share</a>
-                <img class="grid-item icon-upload" onclick="onImgInputIcon()" src="img/folder-add.svg" alt="">
+                <img class="grid-item icon-upload" onclick="onImgInputIcon()" src="img/folder-add.svg" alt=""/>
                 <input hidden type="file" onchange="onImgInput(event)" name="" class="input-img"> <!-- not displayed-->
             </div>
         </div>
     </section>
 
-    <!-- Memes Gallery -->
-    <section class="meme-gallery">
+    <!-- Saved Memes -->
+    <section class="memes-container">
         <div class="main-layout">
 
         </div>
@@ -100,13 +106,13 @@
     <div onclick="onToggleMenu()" class="main-screen"></div>
     <div class="width-test" hidden></div>
 
-    <script src="js/services/utils.services.js"></script>
-    <script src="js/services/storage.services.js"></script>
-    <script src="js/services/upload.services.js"></script>
-    <script src="js/services/meme.services.js"></script>
-    <script src="js/meme.controller.js"></script>
-    <script src="js/meme-gallery.controller.js"></script>
-    <script src="js/gallery.controller.js"></script>
+    <script src="js/services/utils.service.js"></script>
+    <script src="js/services/storage.service.js"></script>
+    <script src="js/services/upload.service.js"></script>
+    <script src="js/services/meme.service.js"></script>
+    <script src="js/controllers/meme.controller.js"></script>
+    <script src="js/controllers/meme-gallery.controller.js"></script>
+    <script src="js/controllers/gallery.controller.js"></script>
 
 </body>
 
