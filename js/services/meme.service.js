@@ -72,7 +72,12 @@ function setMeme(meme) {
     gMeme = meme
 }
 
-function switchSelectedLine(selectedLineIdx) {
+function switchSelectedLine(selectedLineIdx, isLineClicked) {
+    if (isLineClicked) {
+        gMeme.selectedLineIdx = selectedLineIdx
+        return
+    }
+
     if (selectedLineIdx) {
         gMeme.selectedLineIdx = selectedLineIdx
     } else {
@@ -117,13 +122,7 @@ function saveMeme() {
     savedMemes.push(gMeme)
     _saveMemesToStorage(savedMemes)
 
-
-    // sets an image URL for the meme to display later in the gallery
-    // uploadImg()
-    // setTimeout(() => {
-    //     gMeme['memeUrl'] = getUploadedImgURL()
-
-    // }, 2000)
+    // Set meme as image
 }
 
 function savedMemesToStorage(memes) {
@@ -223,12 +222,6 @@ function setMemeLinesData(elCanvas) {
 
             gMeme.lines[idx].pos = pos
         }
-
-        // Sets the lines max width
-        // if (!line.maxWidth) {
-        // const maxWidth = getWidth(line.txt, line.fontSize - 8)
-        // gMeme.lines[idx].maxWidth = 300
-        // }
     })
 }
 
@@ -236,6 +229,6 @@ function getMemeLines() {
     return gMeme.lines
 }
 
-function setLineMaxWidth(dx, lineIdx) {
-    gMeme.lines[lineIdx].maxWidth += dx
+function setLineWidth(dx, lineIdx) {
+    gMeme.lines[lineIdx].fontSize += dx / 4
 }

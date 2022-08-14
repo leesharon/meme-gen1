@@ -72,7 +72,7 @@ function onSetLineFocus() {
 
     gCtx.font = lineSize + 'px' + ' Impact'
 
-    const width = gCtx.measureText(txt).width
+    const width = gCtx.measureText(txt).width + 10
     const height = lineSize + 10
 
     const x = line.pos.x - (width / 2)
@@ -81,9 +81,9 @@ function onSetLineFocus() {
     drawRect(x, y, height, width)
 }
 
-function onSwitchSelectedLine(selectedLineIdx) {
+function onSwitchSelectedLine(selectedLineIdx, isLineClicked) {
     setTimeout(() => {
-        switchSelectedLine(selectedLineIdx)
+        switchSelectedLine(selectedLineIdx, isLineClicked)
         const txt = getSelectedLineTxt()
         document.querySelector('.txt-input').value = txt
 
@@ -179,17 +179,22 @@ function onDown(ev) {
 
     let cursorStyle = document.querySelector('#canvas').style.cursor
 
-    if (cursorStyle === 'ew-resize') {
+    if (cursorStyle === 'nwse-resize') {
         gIsResize = true
 
     } else if (cursorStyle === 'grab') {
         gIsDrag = true
         document.querySelector('#canvas').style.cursor = 'grabbing'
-
     }
+
     gPrevPos = pos
 
-    if (isLineHoveredOrClicked(clickedPos)) switchSelectedLine(getSelectedLine)
+    // Selects the line when clicked
+    if (isLineHoveredOrClicked(pos)) {
+        switchSelectedLine(gClickedLineIdx)
+        onSwitchSelectedLine(gClickedLineIdx, true)
+    }
+
 }
 
 function onMove(ev) {
@@ -202,7 +207,7 @@ function onMove(ev) {
 
     // resize line
     if (gIsResize) {
-        setLineMaxWidth(dx, gClickedLineIdx)
+        setLineWidth(dx, gClickedLineIdx)
 
     } else if (gIsDrag) { // Sets the drag once clicked a line
         moveLine(dx, dy, gClickedLineIdx)
@@ -216,9 +221,10 @@ function onUp() {
     if (gIsDrag) {
         gIsDrag = false
         document.querySelector('#canvas').style.cursor = 'grab'
-    } else if (gIsResize) {
+    } 
+    if (gIsResize) {
         gIsResize = false
-        document.querySelector('#canvas').style.cursor = 'ew-resize'
+        document.querySelector('#canvas').style.cursor = 'nwse-resize'
     }
 }
 
@@ -253,7 +259,7 @@ function toggleCursorHoveredLines(pos) {
     }
 
     // Toggles hover states over the text lines
-    if (cursorStyle === 'grab' || cursorStyle === 'ew-resize') {
+    if (cursorStyle === 'grab' || cursorStyle === 'nwse-resize') {
         if (!isLineHoveredOrClicked(pos)) {
             document.querySelector('#canvas').style.cursor = ''
         }
@@ -262,11 +268,14 @@ function toggleCursorHoveredLines(pos) {
 
 function isLineHoveredOrClicked(clickedPos) {
     const lines = getMemeLines()
-    // Checks if the clickedpos is in the borders of one of the lines
+
+    // Checks if the clicked pos is in the borders of one of the lines
     let hoveredLine
     hoveredLine = lines.find((line, idx) => {
+        
         const lineSize = line.fontSize
-        const width = line.maxWidth
+        gCtx.font = lineSize + 'px' + ' Impact'
+        const width = gCtx.measureText(line.txt).width
         const x = line.pos.x
         const y = line.pos.y
 
@@ -276,13 +285,13 @@ function isLineHoveredOrClicked(clickedPos) {
         const minY = y - lineSize
 
         // inside line 
-        if (clickedPos.x <= maxX && clickedPos.x >= minX && clickedPos.y >= minY && clickedPos.y <= maxY) {
+        if (clickedPos.x <= maxX && clickedPos.x >= minX && clickedPos.y >= minY +10 && clickedPos.y <= maxY + 10) {
             document.querySelector('#canvas').style.cursor = 'grab'
             gClickedLineIdx = idx
 
             // on corner
-            if (clickedPos.x >= maxX - 12) {
-                document.querySelector('#canvas').style.cursor = 'ew-resize'
+            if (clickedPos.x >= maxX - 20 && clickedPos.y >= maxY  - 10) {
+                document.querySelector('#canvas').style.cursor = 'nwse-resize'
             }
             return true
         }
