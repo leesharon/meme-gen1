@@ -16,7 +16,7 @@ function renderGallery() {
 function onImgSelect(imgId, isFlexible, savedMemeIdx) {
     if (isFlexible) imgId = getRandomIntInclusive(1, getImgsLength())
 
-    if(savedMemeIdx) {
+    if (savedMemeIdx) {
         const memes = getSavedMemesFromStorage()
         const meme = memes[savedMemeIdx]
         setMeme(meme)
@@ -33,29 +33,36 @@ function onImgSelect(imgId, isFlexible, savedMemeIdx) {
 
 // renders search bar keywords
 function renderKeywordsList() {
-    const keywords = getKeywords()
+    const keywords = getKeywordsMap()
 
     // Handles words popularity size changes
     let keywordsTotalValue = 0
-    keywords.forEach(keyword => keywordsTotalValue += keyword.value)
+
+    for (const keyword in keywords) {
+        keywordsTotalValue += keywords[keyword]
+    }
 
     // Renders keywords datalist options
     let strDataListHTML
-    strDataListHTML = keywords.map(keyword => `
-         <option value=${keyword.name.charAt(0).toUpperCase() + keyword.name.slice(1)}>
-    `).join('')
 
+    for (const keyword in keywords) {
+        strDataListHTML += `
+             <option value=${keyword.charAt(0).toUpperCase() + keyword.slice(1)}>
+         `
+    }
     document.querySelector('.list-keywords').innerHTML = strDataListHTML
 
     // Renders keywords ul
-    let strHTML
-    strHTML = keywords.map(keyword => `
-    <li style="font-size: ${keyword.value * 10 / keywordsTotalValue}em;" onclick="onSetImgFilter(this.innerText, true)">
-         ${keyword.name.charAt(0).toUpperCase() + keyword.name.slice(1)}
-    </li>
-    `)
+    let strHTML = ``
 
-    document.querySelector('.filter-list').innerHTML = strHTML.join('')
+    for (const keyword in keywords) {
+        strHTML += `
+            <li style="font-size: ${keywords[keyword] * 10 / keywordsTotalValue}em;" onclick="onSetImgFilter(this.innerText, true)">
+                ${keyword.charAt(0).toUpperCase() + keyword.slice(1)}
+            </li>
+         `
+    }
+    document.querySelector('.filter-list').innerHTML = strHTML
 }
 
 function onFlexible() {
@@ -63,8 +70,10 @@ function onFlexible() {
     onImgSelect(undefined, true)
 }
 
-function onSetImgFilter(filterBy, isClicked) {
-    if (isClicked) document.querySelector('.input-search').value = ''
+function onSetImgFilter(filterBy, isKeywordClicked) {
+    if (isKeywordClicked) document.querySelector('.input-search').value = ''
+
+    filterBy = filterBy.toLowerCase()
 
     setImgFilterBy(filterBy)
     renderGallery()

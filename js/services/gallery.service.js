@@ -21,16 +21,15 @@ const gImgs = [
     { id: 18, url: 'img/18.jpg', keywords: ['movie', 'funny'] },
 ]
 
-// const gKeywordSearchCountMap = { 'funny': 12, 'cat': 16, 'baby': 2 }
-const gKeywords = [
-    { name: 'politics', value: 0.8 },
-    { name: 'sweet', value: 1.4 },
-    { name: 'animal', value: 1.2 },
-    { name: 'baby', value: 1.8 },
-    { name: 'celebrity', value: 1.1 },
-    { name: 'funny', value: 2.2 },
-    { name: 'movie', value: 1 }
-]
+const gKeywordSearchCountMap = {
+    politics: 0.8,
+    sweet: 1.4,
+    animal: 1.2,
+    baby: 1.8,
+    celebrity: 1.1,
+    funny: 2.2,
+    movie: 1
+}
 
 let gFilterBy
 
@@ -56,11 +55,10 @@ function setImgFilterBy(filterBy) {
     gFilterBy = filterBy
 }
 
-function getKeywords() {
-    return gKeywords
+function getKeywordsMap() {
+    return gKeywordSearchCountMap
 }
 
 function setKeywordsValue(keywordName) {
-    const keywordIdx = gKeywords.findIndex(keyword => keyword.name === keywordName.toLowerCase())
-    gKeywords[keywordIdx].value += 0.05
+    gKeywordSearchCountMap[keywordName] += 0.05
 }

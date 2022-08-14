@@ -13,7 +13,9 @@ function onDisplaySavedMemes() {
     strHTML = savedMemes.map((meme, memeIdx) => strHTML = `
     <div class="img-wrap">
     <img onclick="onImgSelect(${meme.selectedImgId}, false, ${memeIdx})" src='${meme.imgURL}'>
-    <button class="btn-remove-meme" onclick="onRemoveSavedMeme(${memeIdx})">X</button>
+    <button class="btn-remove-meme" onclick="onRemoveSavedMeme(${memeIdx})">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
     </div>
     `).join('')
     

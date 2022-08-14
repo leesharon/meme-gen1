@@ -1,6 +1,7 @@
 
 .gallery {
     background-color: #e3e3e3;
+    min-height: 70vh;
 }
 
 .gallery .main-layout {
